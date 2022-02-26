@@ -1,7 +1,7 @@
 using PrecastConcretePlantBusinessLogic.BusinessLogics;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using PrecastConcretePlantContracts.StoragesContracts;
-using PrecastConcretePlantListImplement.Implements;
+using PrecastConcretePlantFileImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -38,39 +38,14 @@ namespace PrecastConcretePlantView
         private static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<IComponentStorage,
-            ComponentStorage>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IOrderStorage, OrderStorage>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IReinforcedStorage, ReinforcedStorage>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IReinforcedLogic, ReinforcedLogic>(new
-            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderStorage, OrderStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReinforcedStorage, ReinforcedStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderLogic, OrderLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReinforcedLogic, ReinforcedLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
 
     }
 }
-
-
-/*namespace PrecastConcretePlantView
-{
-    internal static class Program
-    {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new FormMain());
-        }
-    }
-}*/

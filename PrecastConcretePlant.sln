@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantView", "PrecastConcretePlantView\PrecastConcretePlantView.csproj", "{DFF6E5A1-77DB-419C-B54B-510648C58975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantView", "PrecastConcretePlantView\PrecastConcretePlantView.csproj", "{DFF6E5A1-77DB-419C-B54B-510648C58975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantContracts", "PrecastConcretePlantContracts\PrecastConcretePlantContracts.csproj", "{0D584E67-313C-4400-894E-9AF4322B8A6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantContracts", "PrecastConcretePlantContracts\PrecastConcretePlantContracts.csproj", "{0D584E67-313C-4400-894E-9AF4322B8A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantBusinessLogic", "PrecastConcretePlantBusinessLogic\PrecastConcretePlantBusinessLogic.csproj", "{5C36D11E-E308-4E5E-A8BF-FB26EEADF665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantBusinessLogic", "PrecastConcretePlantBusinessLogic\PrecastConcretePlantBusinessLogic.csproj", "{5C36D11E-E308-4E5E-A8BF-FB26EEADF665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantListImplement", "PrecastConcretePlantListImplement\PrecastConcretePlantListImplement.csproj", "{9CBA136B-C5FA-4CFF-8109-DE9255F65909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantListImplement", "PrecastConcretePlantListImplement\PrecastConcretePlantListImplement.csproj", "{9CBA136B-C5FA-4CFF-8109-DE9255F65909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantFileImplement", "PrecastConcretePlantFileImplement\PrecastConcretePlantFileImplement.csproj", "{D1310F14-70E9-41FD-8972-884356210BAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9CBA136B-C5FA-4CFF-8109-DE9255F65909}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CBA136B-C5FA-4CFF-8109-DE9255F65909}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CBA136B-C5FA-4CFF-8109-DE9255F65909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1310F14-70E9-41FD-8972-884356210BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1310F14-70E9-41FD-8972-884356210BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1310F14-70E9-41FD-8972-884356210BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1310F14-70E9-41FD-8972-884356210BAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

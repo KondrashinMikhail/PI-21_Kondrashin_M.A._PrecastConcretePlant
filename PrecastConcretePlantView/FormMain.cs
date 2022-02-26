@@ -1,5 +1,6 @@
 using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
+using PrecastConcretePlantFileImplement;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -22,7 +23,6 @@ namespace PrecastConcretePlantView
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.Rows.Clear();
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
@@ -39,7 +39,6 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormComponents>();
             form.ShowDialog();
         }
-
         private void toolStripMenuItemReinforceds_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReinforceds>();
@@ -51,7 +50,6 @@ namespace PrecastConcretePlantView
             form.ShowDialog();
             LoadData();
         }
-
         private void buttonTakeOrderInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -68,7 +66,6 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonOrderReady_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -85,7 +82,6 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonIssuedOrder_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -102,7 +98,8 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonRefresh_Click(object sender, EventArgs e) => LoadData();
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
     }
 }
