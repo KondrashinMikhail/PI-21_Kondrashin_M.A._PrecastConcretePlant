@@ -6,15 +6,18 @@ using Unity;
 
 namespace PrecastConcretePlantView
 {
-    public partial class FormReinforceds : Form
+    public partial class FormWarehouses : Form
     {
-        private readonly IReinforcedLogic _logic;
-        public FormReinforceds(IReinforcedLogic logic)
+        private readonly IWarehouseLogic _logic;
+        public FormWarehouses(IWarehouseLogic logic)
         {
             InitializeComponent();
             _logic = logic;
         }
-        private void FormReinforceds_Load(object sender, EventArgs e) => LoadData();
+        private void FormWarehouses_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
         private void LoadData()
         {
             try
@@ -25,8 +28,7 @@ namespace PrecastConcretePlantView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[3].Visible = false;
+                    dataGridView.Columns[4].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -36,14 +38,14 @@ namespace PrecastConcretePlantView
         }
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormReinforced>();
+            var form = Program.Container.Resolve<FormWarehouse>();
             if (form.ShowDialog() == DialogResult.OK) LoadData();
         }
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Program.Container.Resolve<FormReinforced>();
+                var form = Program.Container.Resolve<FormWarehouse>();
                 form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK) LoadData();
             }
@@ -57,11 +59,11 @@ namespace PrecastConcretePlantView
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        _logic.Delete(new ReinforcedBindingModel { Id = id });
+                        _logic.Delete(new WarehouseBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,MessageBoxIcon.Error);
                     }
                     LoadData();
                 }
