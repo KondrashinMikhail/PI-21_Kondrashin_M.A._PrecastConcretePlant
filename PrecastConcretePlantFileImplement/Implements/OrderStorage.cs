@@ -63,7 +63,7 @@ namespace PrecastConcretePlantFileImplement.Implements
                 Count = order.Count,
                 Sum = order.Sum,
                 ReinforcedName = reinforcedName,
-                Status = order.Status.ToString(),
+                Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
             };
