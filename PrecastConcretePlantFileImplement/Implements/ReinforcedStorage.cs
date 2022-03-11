@@ -11,10 +11,7 @@ namespace PrecastConcretePlantFileImplement.Implements
     public class ReinforcedStorage : IReinforcedStorage
     {
         private readonly FileDataListSingleton source;
-        public ReinforcedStorage()
-        {
-            source = FileDataListSingleton.GetInstance();
-        }
+        public ReinforcedStorage() => source = FileDataListSingleton.GetInstance();
         public List<ReinforcedViewModel> GetFullList()
         {
             return source.Reinforceds

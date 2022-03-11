@@ -30,7 +30,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Принят))
+            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Принят)
             {
                 var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
                 _orderStorage.Update(new OrderBindingModel
@@ -48,7 +48,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Выполняется))
+            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Выполняется)
             {
                 var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
                 _orderStorage.Update(new OrderBindingModel
@@ -66,7 +66,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Готов))
+            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Готов)
             {
                 var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
                 _orderStorage.Update(new OrderBindingModel

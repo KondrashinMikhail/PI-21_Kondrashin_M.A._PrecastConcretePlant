@@ -1,4 +1,5 @@
 ﻿using System;
+using PrecastConcretePlantContracts.Enums;
 using System.ComponentModel;
 
 namespace PrecastConcretePlantContracts.ViewModels
@@ -14,7 +15,7 @@ namespace PrecastConcretePlantContracts.ViewModels
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }
         [DisplayName("Статус")]
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
         [DisplayName("Дата создания")]
         public DateTime DateCreate { get; set; }
         [DisplayName("Дата выполнения")]
