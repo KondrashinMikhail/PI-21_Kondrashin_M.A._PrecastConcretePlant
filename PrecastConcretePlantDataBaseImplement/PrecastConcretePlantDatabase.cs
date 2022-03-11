@@ -1,7 +1,6 @@
 ﻿using PrecastConcretePlantDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace PrecastConcretePlantDataBaseImplement
 {
     public class PrecastConcretePlantDatabase : DbContext
