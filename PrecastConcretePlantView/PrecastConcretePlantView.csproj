@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrecastConcretePlantBusinessLogic\PrecastConcretePlantBusinessLogic.csproj" />
+    <ProjectReference Include="..\PrecastConcretePlantFileImplement\PrecastConcretePlantFileImplement.csproj" />
     <ProjectReference Include="..\PrecastConcretePlantListImplement\PrecastConcretePlantListImplement.csproj" />
   </ItemGroup>
 
