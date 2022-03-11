@@ -14,14 +14,17 @@ namespace PrecastConcretePlantFileImplement
         private readonly string ComponentFileName = "C:/Users/user/source/repos/XMLDoc/Component.xml";
         private readonly string OrderFileName = "C:/Users/user/source/repos/XMLDoc/Order.xml";
         private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XMLDoc/Reinforced.xml";
+        private readonly string WarehouseFileName = "C:/Users/user/source/repos/XMLDoc/Warehouse.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Reinforced> Reinforceds { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Reinforceds = LoadReinforceds();
             Orders = LoadOrders();
+            Warehouses = LoadWarehouses();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -33,6 +36,7 @@ namespace PrecastConcretePlantFileImplement
             SaveComponents();
             SaveOrders();
             SaveReinforceds();
+            SaveWarehouse();
         }
         private List<Component> LoadComponents()
         {
@@ -100,6 +104,32 @@ namespace PrecastConcretePlantFileImplement
             }
             return list;
         }
+        private List<Warehouse> LoadWarehouses() 
+        {
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                var xDocument = XDocument.Load (WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouses").ToList();
+                foreach (var elem in xElements) 
+                {
+                    var warehouseComponent = new Dictionary<int, int>();
+                    foreach (var component in elem.Element("WarehouseComponents").Elements("WaerhouseComponent").ToList()) 
+                    {
+                        warehouseComponent.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
+                    }
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        WarehouseName = elem.Element("WarehouseName").Value,
+                        WarehouseManagerFullName = elem.Element("WarehouseManagerFullName").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
+                        WarehouseComponents = warehouseComponent
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -140,22 +170,46 @@ namespace PrecastConcretePlantFileImplement
             if (Reinforceds != null)
             {
                 var xElement = new XElement("Reinforceds");
-                foreach (var product in Reinforceds)
+                foreach (var reinforced in Reinforceds)
                 {
                     var compElement = new XElement("ReinforcedComponents");
-                    foreach (var component in product.ReinforcedComponents)
+                    foreach (var component in reinforced.ReinforcedComponents)
                     {
                         compElement.Add(new XElement("ReinforcedComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
                     xElement.Add(new XElement("Reinforced",
-                     new XAttribute("Id", product.Id),
-                     new XElement("ReinforcedName", product.ReinforcedName),
-                     new XElement("Price", product.Price), compElement));
+                     new XAttribute("Id", reinforced.Id),
+                     new XElement("ReinforcedName", reinforced.ReinforcedName),
+                     new XElement("Price", reinforced.Price), compElement));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(ReinforcedFileName);
+            }
+        }
+        private void SaveWarehouse() 
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                     new XAttribute("Id", warehouse.Id),
+                     new XElement("WarehouseName", warehouse.WarehouseName),
+                     new XElement("WarehouseManagerFullName", warehouse.WarehouseManagerFullName),
+                     new XElement("DateCreate", warehouse.DateCreate), compElement));
+                }
+                var xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

@@ -95,5 +95,10 @@ namespace PrecastConcretePlantListImplement.Implements
             }
             return warehouse;
         }
+
+        public bool CheckCcomponents(Dictionary<int, (string, int)> components, int count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

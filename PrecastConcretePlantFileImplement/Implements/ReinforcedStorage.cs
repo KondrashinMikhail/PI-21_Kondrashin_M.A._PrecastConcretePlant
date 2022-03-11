@@ -11,10 +11,7 @@ namespace PrecastConcretePlantFileImplement.Implements
     public class ReinforcedStorage : IReinforcedStorage
     {
         private readonly FileDataListSingleton source;
-        public ReinforcedStorage()
-        {
-            source = FileDataListSingleton.GetInstance();
-        }
+        public ReinforcedStorage() => source = FileDataListSingleton.GetInstance();
         public List<ReinforcedViewModel> GetFullList()
         {
             return source.Reinforceds
@@ -31,13 +28,9 @@ namespace PrecastConcretePlantFileImplement.Implements
         }
         public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
         {
-            if (model == null)
-            {
-                return null;
-            }
-            var product = source.Reinforceds.FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id
-           == model.Id);
-            return product != null ? CreateModel(product) : null;
+            if (model == null) return null;
+            var reinforced = source.Reinforceds.FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id == model.Id);
+            return reinforced != null ? CreateModel(reinforced) : null;
         }
         public void Insert(ReinforcedBindingModel model)
         {

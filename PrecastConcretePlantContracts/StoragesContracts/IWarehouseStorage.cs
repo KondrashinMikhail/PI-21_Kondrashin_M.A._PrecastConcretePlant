@@ -16,5 +16,6 @@ namespace PrecastConcretePlantContracts.StoragesContracts
         void Insert(WarehouseBindingModel model);
         void Update(WarehouseBindingModel model);
         void Delete(WarehouseBindingModel model);
+        bool CheckCcomponents(Dictionary<int, (string, int)> components, int orderCount);
     }
 }
