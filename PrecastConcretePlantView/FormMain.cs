@@ -39,10 +39,19 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormComponents>();
             form.ShowDialog();
         }
-
         private void toolStripMenuItemReinforceds_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReinforceds>();
+            form.ShowDialog();
+        }
+        private void toolStripMenuItemWarehouses_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+        private void toolStripMenuItemAddComponentsToWarehouse_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouseComponent>();
             form.ShowDialog();
         }
         private void buttonCreateOrder_Click(object sender, EventArgs e)
@@ -51,7 +60,6 @@ namespace PrecastConcretePlantView
             form.ShowDialog();
             LoadData();
         }
-
         private void buttonTakeOrderInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -68,7 +76,6 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonOrderReady_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -85,7 +92,6 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonIssuedOrder_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -102,7 +108,6 @@ namespace PrecastConcretePlantView
                 }
             }
         }
-
         private void buttonRefresh_Click(object sender, EventArgs e) => LoadData();
     }
 }
