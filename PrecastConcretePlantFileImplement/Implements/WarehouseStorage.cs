@@ -13,6 +13,7 @@ namespace PrecastConcretePlantFileImplement.Implements
     public class WarehouseStorage : IWarehouseStorage
     {
         private readonly FileDataListSingleton source;
+        public WarehouseStorage() => source = FileDataListSingleton.GetInstance();
         public List<WarehouseViewModel> GetFullList()
         {
             return source.Warehouses
@@ -55,19 +56,33 @@ namespace PrecastConcretePlantFileImplement.Implements
             if (element != null) source.Warehouses.Remove(element);
             else throw new Exception("Элемент не найден");
         }
-        public bool CheckCcomponents(Dictionary<int, (string, int)> components, int orderCount)
+        public bool CheckComponents(Dictionary<int, (string, int)> components, int counter)
         {
-            foreach (var component in components) 
+            foreach (var component in components)
             {
                 int count = source.Warehouses
-                    .Where (rec => rec.WarehouseComponents.ContainsKey(component.Key))
-                    .Sum (rec => rec.WarehouseComponents[component.Key]);
-                if (count < orderCount * component.Value.Item2) return false;
+                    .Where(rec => rec.WarehouseComponents.ContainsKey(component.Key))
+                    .Sum(rec => rec.WarehouseComponents[component.Key]);
+                if (count < component.Value.Item2 * counter) return false;
             }
-            //Удалить все элементы из Warehouses из Warehouse которые попадают в components 
-            foreach (var warehouses in source.Warehouses) 
+            foreach (var component in components) 
             {
-                
+                int requiredNumber = component.Value.Item2 * counter;
+                foreach (var warehouse in source.Warehouses)
+                {
+                    var warehouseComponent = warehouse.WarehouseComponents;
+                    if (!warehouseComponent.ContainsKey(component.Key)) continue;
+                    if (warehouseComponent[component.Key] > requiredNumber)
+                    {
+                        warehouseComponent[component.Key] -= requiredNumber;
+                        break;
+                    }
+                    else if (warehouseComponent[component.Key] <= requiredNumber)
+                    {
+                        requiredNumber -= warehouseComponent[component.Key];
+                        warehouseComponent.Remove(component.Key);
+                    }
+                }
             }
             return true;
         }

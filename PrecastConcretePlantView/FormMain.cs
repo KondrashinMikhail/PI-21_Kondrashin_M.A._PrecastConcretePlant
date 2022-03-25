@@ -1,5 +1,6 @@
 using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
+using PrecastConcretePlantFileImplement;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -108,5 +109,10 @@ namespace PrecastConcretePlantView
             }
         }
         private void buttonRefresh_Click(object sender, EventArgs e) => LoadData();
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FileDataListSingleton.GetInstance().Save();
+        }
     }
 }

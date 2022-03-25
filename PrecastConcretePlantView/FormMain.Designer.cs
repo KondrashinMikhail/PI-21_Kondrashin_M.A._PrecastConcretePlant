@@ -32,14 +32,14 @@
             this.toolStripMenuItemReferences = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemComponents = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemReinforceds = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemWarehouses = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddComponentsToWarehouse = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.buttonTakeOrderInWork = new System.Windows.Forms.Button();
             this.buttonOrderReady = new System.Windows.Forms.Button();
             this.buttonIssuedOrder = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.toolStripMenuItemWarehouses = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddComponentsToWarehouse = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -79,6 +79,20 @@
             this.toolStripMenuItemReinforceds.Size = new System.Drawing.Size(275, 26);
             this.toolStripMenuItemReinforceds.Text = "Железобетонные изделия";
             this.toolStripMenuItemReinforceds.Click += new System.EventHandler(this.toolStripMenuItemReinforceds_Click);
+            // 
+            // toolStripMenuItemWarehouses
+            // 
+            this.toolStripMenuItemWarehouses.Name = "toolStripMenuItemWarehouses";
+            this.toolStripMenuItemWarehouses.Size = new System.Drawing.Size(275, 26);
+            this.toolStripMenuItemWarehouses.Text = "Склады";
+            this.toolStripMenuItemWarehouses.Click += new System.EventHandler(this.toolStripMenuItemWarehouses_Click);
+            // 
+            // toolStripMenuItemAddComponentsToWarehouse
+            // 
+            this.toolStripMenuItemAddComponentsToWarehouse.Name = "toolStripMenuItemAddComponentsToWarehouse";
+            this.toolStripMenuItemAddComponentsToWarehouse.Size = new System.Drawing.Size(162, 24);
+            this.toolStripMenuItemAddComponentsToWarehouse.Text = "Пополнение склада";
+            this.toolStripMenuItemAddComponentsToWarehouse.Click += new System.EventHandler(this.toolStripMenuItemAddComponentsToWarehouse_Click);
             // 
             // dataGridView
             // 
@@ -140,20 +154,6 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // toolStripMenuItemWarehouses
-            // 
-            this.toolStripMenuItemWarehouses.Name = "toolStripMenuItemWarehouses";
-            this.toolStripMenuItemWarehouses.Size = new System.Drawing.Size(275, 26);
-            this.toolStripMenuItemWarehouses.Text = "Склады";
-            this.toolStripMenuItemWarehouses.Click += new System.EventHandler(this.toolStripMenuItemWarehouses_Click);
-            // 
-            // toolStripMenuItemAddComponentsToWarehouse
-            // 
-            this.toolStripMenuItemAddComponentsToWarehouse.Name = "toolStripMenuItemAddComponentsToWarehouse";
-            this.toolStripMenuItemAddComponentsToWarehouse.Size = new System.Drawing.Size(162, 24);
-            this.toolStripMenuItemAddComponentsToWarehouse.Text = "Пополнение склада";
-            this.toolStripMenuItemAddComponentsToWarehouse.Click += new System.EventHandler(this.toolStripMenuItemAddComponentsToWarehouse_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -169,6 +169,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Завод ЖБИ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

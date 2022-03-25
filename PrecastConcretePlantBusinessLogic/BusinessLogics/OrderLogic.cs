@@ -9,8 +9,15 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
+        private readonly IWarehouseStorage _warehouseStorage;
+        private readonly IReinforcedStorage _reinforcedStorage;
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage) => _orderStorage = orderStorage;
+        public OrderLogic(IOrderStorage orderStorage, IReinforcedStorage reinforcedStorage, IWarehouseStorage warehouseStorage)
+        {
+            _orderStorage = orderStorage;
+            _reinforcedStorage = reinforcedStorage;
+            _warehouseStorage = warehouseStorage;
+        }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null) return _orderStorage.GetFullList();
@@ -32,17 +39,22 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         {
             if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Принят))
             {
-                var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-                _orderStorage.Update(new OrderBindingModel
+                var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+                if (_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
                 {
-                    Id = tempModel.Id,
-                    ReinforcedId = tempModel.ReinforcedId,
-                    Sum = tempModel.Sum,
-                    Status = OrderStatus.Выполняется,
-                    Count = tempModel.Count,
-                    DateCreate = tempModel.DateCreate,
-                    DateImplement = DateTime.Now
-                });
+                    var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+                    _orderStorage.Update(new OrderBindingModel
+                    {
+                        Id = tempModel.Id,
+                        ReinforcedId = tempModel.ReinforcedId,
+                        Sum = tempModel.Sum,
+                        Status = OrderStatus.Выполняется,
+                        Count = tempModel.Count,
+                        DateCreate = tempModel.DateCreate,
+                        DateImplement = DateTime.Now
+                    });
+                }
+                else throw new Exception("На складах недостаточно компонентов");
             }
             else throw new Exception("Заказ должен находиться в состоянии 'Принят'");
         }

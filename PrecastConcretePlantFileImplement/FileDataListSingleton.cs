@@ -11,10 +11,10 @@ namespace PrecastConcretePlantFileImplement
     public class FileDataListSingleton
     {
         private static FileDataListSingleton instance;
-        private readonly string ComponentFileName = "C:/Users/user/source/repos/XMLDoc/Component.xml";
-        private readonly string OrderFileName = "C:/Users/user/source/repos/XMLDoc/Order.xml";
-        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XMLDoc/Reinforced.xml";
-        private readonly string WarehouseFileName = "C:/Users/user/source/repos/XMLDoc/Warehouse.xml";
+        private readonly string ComponentFileName = "C:/Users/user/source/repos/XML/Component.xml";
+        private readonly string OrderFileName = "C:/Users/user/source/repos/XML/Order.xml";
+        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XML/Reinforced.xml";
+        private readonly string WarehouseFileName = "C:/Users/user/source/repos/XML/Warehouse.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Reinforced> Reinforceds { get; set; }
@@ -110,11 +110,11 @@ namespace PrecastConcretePlantFileImplement
             if (File.Exists(WarehouseFileName))
             {
                 var xDocument = XDocument.Load (WarehouseFileName);
-                var xElements = xDocument.Root.Elements("Warehouses").ToList();
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
                 foreach (var elem in xElements) 
                 {
                     var warehouseComponent = new Dictionary<int, int>();
-                    foreach (var component in elem.Element("WarehouseComponents").Elements("WaerhouseComponent").ToList()) 
+                    foreach (var component in elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList()) 
                     {
                         warehouseComponent.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
                     }
