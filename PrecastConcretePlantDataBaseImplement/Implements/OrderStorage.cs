@@ -33,40 +33,20 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null) return null;
-            PrecastConcretePlantDatabase context = new PrecastConcretePlantDatabase();
+            var context = new PrecastConcretePlantDatabase();
             return context.Orders.Include(rec => rec.Reinforced)
-                .Where(rec => rec.ReinforcedId == model.ReinforcedId)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    ReinforcedId = rec.ReinforcedId,
-                    ReinforcedName = context.Reinforceds.FirstOrDefault(tc => tc.Id == rec.ReinforcedId).ReinforcedName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
-                })
+                .Where(rec => rec.Id == model.Id
+                || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) 
+                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
+                .Select(CreateModel)
                 .ToList();
         }
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null) return null;
-            PrecastConcretePlantDatabase context = new PrecastConcretePlantDatabase();
-            Order order = context.Orders
-                .Include(rec => rec.Reinforced)
-                .FirstOrDefault(rec => rec.ReinforcedId == model.ReinforcedId || rec.Id == model.Id);
-            return order != null ? new OrderViewModel
-            {
-                Id = order.Id,
-                ReinforcedId = order.ReinforcedId,
-                ReinforcedName = context.Reinforceds.FirstOrDefault(rec => rec.Id == order.ReinforcedId)?.ReinforcedName,
-                Count = order.Count,
-                Sum = order.Sum,
-                Status = order.Status,
-                DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement
-            } : null;
+            var context = new PrecastConcretePlantDatabase();
+            var order = context.Orders.Include(rec => rec.Reinforced).FirstOrDefault(rec => rec.Id == model.Id);
+            return order != null ? CreateModel(order) : null;
         }
         public void Insert(OrderBindingModel model)
         {
@@ -81,7 +61,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 DateImplement = model.DateImplement
             };
             context.Orders.Add(order);
-            CreateModel(order, context);
+            CreateModel(order);
             context.SaveChanges();
         }
         public void Update(OrderBindingModel model)
@@ -95,7 +75,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
-            CreateModel(order, context);
+            CreateModel(order);
             context.SaveChanges();
         }
         public void Delete(OrderBindingModel model)
@@ -109,18 +89,18 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             else throw new Exception("Элемент не найден");
         }
-        private OrderViewModel CreateModel(Order order, PrecastConcretePlantDatabase context) 
+        private OrderViewModel CreateModel(Order order) 
         {
-            return new OrderViewModel 
+            return new OrderViewModel
             {
                 Id = order.Id,
                 ReinforcedId = order.ReinforcedId,
-                ReinforcedName = context.Reinforceds.FirstOrDefault(rec => rec.Id == order.ReinforcedId)?.ReinforcedName,
+                ReinforcedName = order.Reinforced.ReinforcedName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement
+                DateImplement = order.DateImplement,
             };
         }
     }

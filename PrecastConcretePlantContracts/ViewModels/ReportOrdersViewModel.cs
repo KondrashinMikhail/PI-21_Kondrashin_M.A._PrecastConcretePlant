@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrecastConcretePlantContracts.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,6 @@ namespace PrecastConcretePlantContracts.ViewModels
         public string ReinforcedName { get; set; }
         public int Count { get; set; }
         public decimal Sum { get; set; }
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
     }
 }

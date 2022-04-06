@@ -20,10 +20,8 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
             private readonly AbstractSaveToExcel _saveToExcel;
             private readonly AbstractSaveToWord _saveToWord;
             private readonly AbstractSaveToPdf _saveToPdf;
-            public ReportLogic(IReinforcedStorage productStorage, IComponentStorage
-           componentStorage, IOrderStorage orderStorage,
-            AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord,
-           AbstractSaveToPdf saveToPdf)
+            public ReportLogic(IReinforcedStorage productStorage, IComponentStorage componentStorage, IOrderStorage orderStorage,
+            AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf)
             {
                 _productStorage = productStorage;
                 _componentStorage = componentStorage;
@@ -63,8 +61,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
             {
                 return _orderStorage.GetFilteredList(new OrderBindingModel
                 {
-                    DateFrom =
-               model.DateFrom,
+                    DateFrom = model.DateFrom,
                     DateTo = model.DateTo
                 })
                 .Select(x => new ReportOrdersViewModel
@@ -73,7 +70,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     ReinforcedName = x.ReinforcedName,
                     Count = x.Count,
                     Sum = x.Sum,
-                    Status = x.Status.ToString()
+                    Status = x.Status
                 })
                .ToList();
             }
