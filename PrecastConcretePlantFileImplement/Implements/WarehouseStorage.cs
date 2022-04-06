@@ -82,6 +82,7 @@ namespace PrecastConcretePlantFileImplement.Implements
                         requiredNumber -= warehouseComponent[component.Key];
                         warehouseComponent.Remove(component.Key);
                     }
+                    if (requiredNumber == 0) break;
                 }
             }
             return true;

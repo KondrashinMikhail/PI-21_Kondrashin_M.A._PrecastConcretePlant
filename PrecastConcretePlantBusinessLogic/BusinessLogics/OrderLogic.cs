@@ -37,24 +37,21 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Принят))
             {
-                var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-                if (_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
+                if (!_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
+                    throw new Exception("На складах недостаточно компонентов");
+                _orderStorage.Update(new OrderBindingModel
                 {
-                    var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-                    _orderStorage.Update(new OrderBindingModel
-                    {
-                        Id = tempModel.Id,
-                        ReinforcedId = tempModel.ReinforcedId,
-                        Sum = tempModel.Sum,
-                        Status = OrderStatus.Выполняется,
-                        Count = tempModel.Count,
-                        DateCreate = tempModel.DateCreate,
-                        DateImplement = DateTime.Now
-                    });
-                }
-                else throw new Exception("На складах недостаточно компонентов");
+                    Id = order.Id,
+                    ReinforcedId = order.ReinforcedId,
+                    Sum = order.Sum,
+                    Status = OrderStatus.Выполняется,
+                    Count = order.Count,
+                    DateCreate = order.DateCreate,
+                    DateImplement = DateTime.Now
+                });
             }
             else throw new Exception("Заказ должен находиться в состоянии 'Принят'");
         }

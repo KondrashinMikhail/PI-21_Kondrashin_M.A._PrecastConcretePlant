@@ -21,7 +21,7 @@ namespace PrecastConcretePlantFileImplement.Implements
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null) return null;
-            var component = source.Orders.FirstOrDefault(rec => rec.ReinforcedId == model.ReinforcedId || rec.Id == model.Id || rec.Count == model.Count || rec.Sum == model.Sum || rec.Status == model.Status);
+            var component = source.Orders.FirstOrDefault(rec => rec.Id == model.Id);
             return component != null ? CreateModel(component) : null;
         }
         public void Insert(OrderBindingModel model)
