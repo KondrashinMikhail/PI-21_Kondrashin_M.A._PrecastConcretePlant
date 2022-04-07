@@ -32,9 +32,9 @@ namespace PrecastConcretePlantFileImplement.Implements
             {
                 return null;
             }
-            var product = source.Reinforceds.FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id
+            var reinforced = source.Reinforceds.FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id
            == model.Id);
-            return product != null ? CreateModel(product) : null;
+            return reinforced != null ? CreateModel(reinforced) : null;
         }
         public void Insert(ReinforcedBindingModel model)
         {

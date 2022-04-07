@@ -15,15 +15,15 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public class ReportLogic : IReportLogic
         {
             private readonly IComponentStorage _componentStorage;
-            private readonly IReinforcedStorage _productStorage;
+            private readonly IReinforcedStorage _reinforcedStorage;
             private readonly IOrderStorage _orderStorage;
             private readonly AbstractSaveToExcel _saveToExcel;
             private readonly AbstractSaveToWord _saveToWord;
             private readonly AbstractSaveToPdf _saveToPdf;
-            public ReportLogic(IReinforcedStorage productStorage, IComponentStorage componentStorage, IOrderStorage orderStorage,
+            public ReportLogic(IReinforcedStorage reinforcedStorage, IComponentStorage componentStorage, IOrderStorage orderStorage,
             AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf)
             {
-                _productStorage = productStorage;
+                _reinforcedStorage = reinforcedStorage;
                 _componentStorage = componentStorage;
                 _orderStorage = orderStorage;
                 _saveToExcel = saveToExcel;
@@ -33,7 +33,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
             public List<ReportReinforcedComponentViewModel> GetReinforcedComponent()
             {
                 var components = _componentStorage.GetFullList();
-                var products = _productStorage.GetFullList();
+                var reinforceds = _reinforcedStorage.GetFullList();
                 var list = new List<ReportReinforcedComponentViewModel>();
                 foreach (var component in components)
                 {
@@ -43,14 +43,14 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                         Reinforceds = new List<Tuple<string, int>>(),
                         TotalCount = 0
                     };
-                    foreach (var product in products)
+                    foreach (var reinforced in reinforceds)
                     {
-                        if (product.ReinforcedComponents.ContainsKey(component.Id))
+                        if (reinforced.ReinforcedComponents.ContainsKey(component.Id))
                         {
-                            record.Reinforceds.Add(new Tuple<string, int>(product.ReinforcedName,
-                           product.ReinforcedComponents[component.Id].Item2));
+                            record.Reinforceds.Add(new Tuple<string, int>(reinforced.ReinforcedName,
+                           reinforced.ReinforcedComponents[component.Id].Item2));
                             record.TotalCount +=
-                           product.ReinforcedComponents[component.Id].Item2;
+                           reinforced.ReinforcedComponents[component.Id].Item2;
                         }
                     }
                     list.Add(record);

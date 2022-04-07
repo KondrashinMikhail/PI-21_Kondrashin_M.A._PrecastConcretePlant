@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="text-center">
+    <h2 class="display-4">Создание заказа</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Изделие:</div>
+        <div class="col-8">
+            <select id="reinforced" name="reinforced" class="form-control" aspitems="@(new SelectList(@ViewBag.Reinforceds,"Id", "ReinforcedName"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Количество:</div>
+        <div class="col-8"><input type="text" name="count" id="count" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Сумма:</div>
+        <div class="col-8"><input type="text" id="sum" name="sum" readonly="true"/></div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btnprimary" /></div>
+    </div>
+</form>
+<script>
+$('#reinforced').on('change', function () {
+    check();
+});
+$('#count').on('change', function () {
+    check();
+});
+function check() {
+    var count = $('#count').val();
+    var reinforced = $('#reinforced').val();
+    if (count && reinforced) {
+        $.ajax({
+            method: "POST",
+            url: "/Home/Calc",
+            data: { count: count, reinforced: reinforced },
+            success: function (result) {
+                $("#sum").val(result);
+            }
+        });
+    };
+}
+</script>
