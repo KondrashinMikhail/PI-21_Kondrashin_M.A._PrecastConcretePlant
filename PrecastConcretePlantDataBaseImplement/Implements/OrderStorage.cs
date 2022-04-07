@@ -17,17 +17,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             using var context = new PrecastConcretePlantDatabase();
             return context.Orders
                 .Include(rec => rec.Reinforced)
-                .Select(rec => new OrderViewModel 
-                {
-                    Id = rec.Id,
-                    ReinforcedId = rec.ReinforcedId,
-                    ReinforcedName = context.Reinforceds.FirstOrDefault(tc => tc.Id == rec.ReinforcedId).ReinforcedName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
-                })
+                .Select(CreateModel)
                 .ToList();
         }
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
@@ -37,7 +27,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             return context.Orders.Include(rec => rec.Reinforced)
                 .Where(rec => rec.Id == model.Id
                 || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) 
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
+                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) 
+                || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
                 .Select(CreateModel)
                 .ToList();
         }
@@ -54,6 +45,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var order = new Order
             {
                 ReinforcedId = model.ReinforcedId,
+                ClientId = (int)model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -61,7 +53,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 DateImplement = model.DateImplement
             };
             context.Orders.Add(order);
-            CreateModel(order);
+            CreateModel(model, order);
             context.SaveChanges();
         }
         public void Update(OrderBindingModel model)
@@ -70,12 +62,13 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var order = context.Orders.FirstOrDefault(recc => recc.Id == model.Id);
             if (order == null) throw new Exception("Элемент не найден");
             order.ReinforcedId = model.ReinforcedId;
+            //order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
-            CreateModel(order);
+            CreateModel(model, order);
             context.SaveChanges();
         }
         public void Delete(OrderBindingModel model)
@@ -89,13 +82,32 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             else throw new Exception("Элемент не найден");
         }
+        private Order CreateModel(OrderBindingModel model, Order order) 
+        {
+            if (model == null) return null;
+            var context = new PrecastConcretePlantDatabase();
+            var element = context.Reinforceds.FirstOrDefault(rec => rec.Id == model.ReinforcedId);
+            if (element != null)
+            {
+                if (element.Orders == null) element.Orders = new List<Order>();
+                element.Orders.Add(order);
+                context.Reinforceds.Update(element);
+                context.SaveChanges();
+            }
+            else throw new Exception("Элемент не найден");
+            return order;
+        }
         private OrderViewModel CreateModel(Order order) 
         {
+            var context = new PrecastConcretePlantDatabase();
+            var reinforced = context.Reinforceds.FirstOrDefault(rec => rec.Id == order.ReinforcedId);
             return new OrderViewModel
             {
                 Id = order.Id,
                 ReinforcedId = order.ReinforcedId,
-                ReinforcedName = order.Reinforced.ReinforcedName,
+                ClientId = order.ClientId,
+                ClientName = context.Clients.Include(rec => rec.Orders).FirstOrDefault(rec1 => rec1.Id == order.ClientId).ClientName,
+                ReinforcedName = reinforced.ReinforcedName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
