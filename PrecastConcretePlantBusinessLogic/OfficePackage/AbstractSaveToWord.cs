@@ -15,21 +15,21 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage
             CreateWord(info);
             CreateParagraph(new WordParagraph
             {
-                Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24" }) },
+                Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24", }) },
                 TextProperties = new WordTextProperties
                 {
                     Size = "24",
                     JustificationType = WordJustificationType.Center
                 }
             });
-            foreach (var reinforced in info.Reinforceds)
+            foreach (var component in info.Components)
             {
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = new List<(string, WordTextProperties)> { (reinforced.ReinforcedName + " ", new WordTextProperties { Size = "24", Bold = true }), (reinforced.Price.ToString(), new WordTextProperties { Size = "24" }) },
+                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
                     TextProperties = new WordTextProperties
                     {
-                        Size = "24",
+                        Size = "24", 
                         JustificationType = WordJustificationType.Both
                     }
                 });

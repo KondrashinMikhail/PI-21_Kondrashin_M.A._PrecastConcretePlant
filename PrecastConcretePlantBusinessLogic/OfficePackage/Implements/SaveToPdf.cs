@@ -12,7 +12,8 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
         private Document _document;
         private Section _section;
         private Table _table;
-        private static ParagraphAlignment GetParagraphAlignment(PdfParagraphAlignmentType type)
+        private static ParagraphAlignment GetParagraphAlignment(PdfParagraphAlignmentType
+       type)
         {
             return type switch
             {

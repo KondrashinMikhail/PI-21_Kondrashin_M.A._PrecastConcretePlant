@@ -32,8 +32,8 @@ namespace PrecastConcretePlantView
                     dataGridView.Rows.Clear();
                     foreach (var elem in dict)
                     {
-                        dataGridView.Rows.Add(new object[] { elem.ReinforcedName, "", ""});
-                        foreach (var listElem in elem.Components)
+                        dataGridView.Rows.Add(new object[] { elem.ComponentName, "", ""});
+                        foreach (var listElem in elem.Reinforceds)
                         {
                             dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }

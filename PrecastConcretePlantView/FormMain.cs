@@ -104,7 +104,7 @@ namespace PrecastConcretePlantView
             }
         }
         private void buttonRefresh_Click(object sender, EventArgs e) => LoadData();
-        private void списокИзделийToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокКомпонентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)

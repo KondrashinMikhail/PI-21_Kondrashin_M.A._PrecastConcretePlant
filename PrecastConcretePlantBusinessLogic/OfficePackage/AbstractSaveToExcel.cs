@@ -32,11 +32,11 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage
                 {
                     ColumnName = "A",
                     RowIndex = rowIndex,
-                    Text = pc.ReinforcedName,
+                    Text = pc.ComponentName,
                     StyleInfo = ExcelStyleInfoType.Text
                 });
                 rowIndex++;
-                foreach (var reinforced in pc.Components)
+                foreach (var reinforced in pc.Reinforceds)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
