@@ -8,8 +8,8 @@ namespace PrecastConcretePlantContracts.ViewModels
 {
     public class ReportReinforcedComponentViewModel
     {
-        public string ComponentName { get; set; }
+        public List<Tuple<string, int>> Components { get; set; }
         public int TotalCount { get; set; }
-        public List<Tuple<string, int>> Reinforceds { get; set; }
+        public string ReinforcedName { get; set; }
     }
 }

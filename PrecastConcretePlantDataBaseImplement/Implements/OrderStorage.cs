@@ -17,7 +17,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             using var context = new PrecastConcretePlantDatabase();
             return context.Orders
                 .Include(rec => rec.Reinforced)
-                .Select(rec => new OrderViewModel 
+                .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ReinforcedId = rec.ReinforcedId,
@@ -36,7 +36,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var context = new PrecastConcretePlantDatabase();
             return context.Orders.Include(rec => rec.Reinforced)
                 .Where(rec => rec.Id == model.Id
-                || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) 
+                || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
                 || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))
                 .Select(CreateModel)
                 .ToList();
@@ -89,13 +89,14 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             else throw new Exception("Элемент не найден");
         }
-        private OrderViewModel CreateModel(Order order) 
+        private OrderViewModel CreateModel(Order order)
         {
+            var context = new PrecastConcretePlantDatabase();
             return new OrderViewModel
             {
                 Id = order.Id,
                 ReinforcedId = order.ReinforcedId,
-                ReinforcedName = order.Reinforced.ReinforcedName,
+                ReinforcedName = context.Reinforceds.FirstOrDefault(tc => tc.Id == order.ReinforcedId).ReinforcedName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
