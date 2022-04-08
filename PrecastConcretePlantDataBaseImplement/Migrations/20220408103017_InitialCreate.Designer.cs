@@ -12,7 +12,7 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
-    [Migration("20220407120054_InitialCreate")]
+    [Migration("20220408103017_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

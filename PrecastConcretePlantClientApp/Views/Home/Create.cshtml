@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-4">Изделие:</div>
         <div class="col-8">
-            <select id="reinforced" name="reinforced" class="form-control" aspitems="@(new SelectList(@ViewBag.Reinforceds,"Id", "ReinforcedName"))"></select>
+            <select id="reinforced" name="reinforced" class="form-control" asp-items="@(new SelectList(@ViewBag.Reinforceds, "Id", "ReinforcedName"))"></select>
         </div>
     </div>
     <div class="row">

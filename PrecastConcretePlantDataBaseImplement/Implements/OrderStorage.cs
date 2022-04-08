@@ -54,7 +54,6 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             };
             context.Orders.Add(order);
             CreateModel(model, order);
-            context.SaveChanges();
         }
         public void Update(OrderBindingModel model)
         {
@@ -62,7 +61,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var order = context.Orders.FirstOrDefault(recc => recc.Id == model.Id);
             if (order == null) throw new Exception("Элемент не найден");
             order.ReinforcedId = model.ReinforcedId;
-            //order.ClientId = (int)model.ClientId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;

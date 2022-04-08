@@ -14,7 +14,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null) return _orderStorage.GetFullList();
-            if (model.Id.HasValue) return new List<OrderViewModel> { _orderStorage.GetElement(model) };
+            if (model.Id != null) return new List<OrderViewModel> { _orderStorage.GetElement(model) };
             return _orderStorage.GetFilteredList(model);
         }
         public void CreateOrder(CreateOrderBindingModel model)
