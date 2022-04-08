@@ -35,8 +35,8 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ComponentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ide = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ComponentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComponentCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -97,8 +97,8 @@
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ComponentName,
             this.Ide,
+            this.ComponentName,
             this.ComponentCount});
             this.dataGridView.Location = new System.Drawing.Point(12, 78);
             this.dataGridView.Name = "dataGridView";
@@ -107,13 +107,6 @@
             this.dataGridView.Size = new System.Drawing.Size(504, 308);
             this.dataGridView.TabIndex = 6;
             // 
-            // ComponentName
-            // 
-            this.ComponentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ComponentName.HeaderText = "Название компонента";
-            this.ComponentName.MinimumWidth = 6;
-            this.ComponentName.Name = "ComponentName";
-            // 
             // Ide
             // 
             this.Ide.HeaderText = "";
@@ -121,6 +114,13 @@
             this.Ide.Name = "Ide";
             this.Ide.Visible = false;
             this.Ide.Width = 125;
+            // 
+            // ComponentName
+            // 
+            this.ComponentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ComponentName.HeaderText = "Название компонента";
+            this.ComponentName.MinimumWidth = 6;
+            this.ComponentName.Name = "ComponentName";
             // 
             // ComponentCount
             // 
@@ -159,8 +159,8 @@
         private Button buttonSave;
         private Button buttonCancel;
         private DataGridView dataGridView;
+        private DataGridViewTextBoxColumn Ide;
         private DataGridViewTextBoxColumn ComponentName;
         private DataGridViewTextBoxColumn ComponentCount;
-        private DataGridViewTextBoxColumn Ide;
     }
 }
