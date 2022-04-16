@@ -22,11 +22,12 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage
                     JustificationType = WordJustificationType.Center
                 }
             });
-            foreach (var component in info.Components)
+            foreach (var reinforced in info.Reinforceds)
             {
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
+                    Texts = new List<(string, WordTextProperties)> { (reinforced.ReinforcedName + " ", new WordTextProperties { Size = "24", Bold = true }),
+                    (reinforced.Price.ToString(), new WordTextProperties { Size = "24" })},
                     TextProperties = new WordTextProperties
                     {
                         Size = "24", 
