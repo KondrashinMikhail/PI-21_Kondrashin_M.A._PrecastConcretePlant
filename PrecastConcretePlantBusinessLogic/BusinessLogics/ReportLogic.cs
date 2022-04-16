@@ -30,34 +30,28 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                 _saveToWord = saveToWord;
                 _saveToPdf = saveToPdf;
             }
-            public List<ReportReinforcedComponentViewModel> GetReinforcedComponent()
+        public List<ReportReinforcedComponentViewModel> GetReinforcedComponent()
+        {
+            var reinforceds = _reinforcedStorage.GetFullList();
+            var list = new List<ReportReinforcedComponentViewModel>();
+            foreach (var reinforced in reinforceds)
             {
-                var components = _componentStorage.GetFullList();
-                var reinforceds = _reinforcedStorage.GetFullList();
-                var list = new List<ReportReinforcedComponentViewModel>();
-                foreach (var component in components)
+                var record = new ReportReinforcedComponentViewModel
                 {
-                    var record = new ReportReinforcedComponentViewModel
-                    {
-                        ComponentName = component.ComponentName,
-                        Reinforceds = new List<Tuple<string, int>>(),
-                        TotalCount = 0
-                    };
-                    foreach (var reinforced in reinforceds)
-                    {
-                        if (reinforced.ReinforcedComponents.ContainsKey(component.Id))
-                        {
-                            record.Reinforceds.Add(new Tuple<string, int>(reinforced.ReinforcedName,
-                           reinforced.ReinforcedComponents[component.Id].Item2));
-                            record.TotalCount +=
-                           reinforced.ReinforcedComponents[component.Id].Item2;
-                        }
-                    }
-                    list.Add(record);
+                    ReinforcedName = reinforced.ReinforcedName,
+                    Components = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var component in reinforced.ReinforcedComponents)
+                {
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
                 }
-                return list;
+                list.Add(record);
             }
-            public List<ReportOrdersViewModel> GetOrders(ReportBindingModel model)
+            return list;
+        }
+        public List<ReportOrdersViewModel> GetOrders(ReportBindingModel model)
             {
                 return _orderStorage.GetFilteredList(new OrderBindingModel
                 {
@@ -79,8 +73,8 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                 _saveToWord.CreateDoc(new WordInfo
                 {
                     FileName = model.FileName,
-                    Title = "Список компонент",
-                    Components = _componentStorage.GetFullList()
+                    Title = "Список изделий",
+                    Reinforceds = _reinforcedStorage.GetFullList()
                 });
             }
             public void SaveReinforcedComponentToExcelFile(ReportBindingModel model)
