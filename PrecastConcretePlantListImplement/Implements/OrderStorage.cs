@@ -18,8 +18,13 @@ namespace PrecastConcretePlantListImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null) return null;
-            var result = new List<OrderViewModel>();
-            foreach (var order in source.Orders) if (order.Id > model.Id) result.Add(CreateModel(order));
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var order in source.Orders)
+            {
+                if (order.Id.Equals(model.Id) || ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date
+                && order.DateCreate.Date <= model.DateTo.Value.Date))) result.Add(CreateModel(order));
+            }
             return result;
         }
         public OrderViewModel GetElement(OrderBindingModel model)
