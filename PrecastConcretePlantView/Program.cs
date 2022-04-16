@@ -1,7 +1,7 @@
 using PrecastConcretePlantBusinessLogic.BusinessLogics;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using PrecastConcretePlantContracts.StoragesContracts;
-using PrecastConcretePlantListImplement.Implements;
+using PrecastConcretePlantFileImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -16,10 +16,7 @@ namespace PrecastConcretePlantView
         {
             get
             {
-                if (container == null)
-                {
-                    container = BuildUnityContainer();
-                }
+                if (container == null) container = BuildUnityContainer();
                 return container;
             }
         }
@@ -48,6 +45,5 @@ namespace PrecastConcretePlantView
             currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
-
     }
 }
