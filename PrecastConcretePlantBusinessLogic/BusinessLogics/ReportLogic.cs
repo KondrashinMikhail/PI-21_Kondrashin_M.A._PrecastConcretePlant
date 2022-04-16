@@ -73,8 +73,8 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                 _saveToWord.CreateDoc(new WordInfo
                 {
                     FileName = model.FileName,
-                    Title = "Список компонент",
-                    Components = _componentStorage.GetFullList()
+                    Title = "Список изделий",
+                    Reinforceds = _reinforcedStorage.GetFullList()
                 });
             }
             public void SaveReinforcedComponentToExcelFile(ReportBindingModel model)
