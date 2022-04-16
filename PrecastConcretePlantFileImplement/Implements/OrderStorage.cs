@@ -15,9 +15,12 @@ namespace PrecastConcretePlantFileImplement.Implements
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null) return null;
-            var order = source.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id || rec.ReinforcedId == model.ReinforcedId);
-            return order != null ? CreateModel(order) : null;
+            return source.Orders
+               .Where(rec => rec.ReinforcedId.ToString().Contains(model.ReinforcedId.ToString()) || ((!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date
+               && rec.DateCreate.Date <= model.DateTo.Value.Date)))
+               .Select(CreateModel)
+               .ToList();
         }
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
