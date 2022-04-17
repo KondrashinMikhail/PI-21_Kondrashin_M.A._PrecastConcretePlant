@@ -134,11 +134,7 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormReportOrders>();
             form.ShowDialog();
         }
-        private void buttonRefresh_Click(object sender, EventArgs e) => LoadData();
-
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FileDataListSingleton.GetInstance().Save();
-        }
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
+        
     }
 }

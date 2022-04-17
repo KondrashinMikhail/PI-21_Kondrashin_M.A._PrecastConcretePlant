@@ -1,4 +1,6 @@
 using PrecastConcretePlantBusinessLogic.BusinessLogics;
+using PrecastConcretePlantBusinessLogic.OfficePackage;
+using PrecastConcretePlantBusinessLogic.OfficePackage.Implements;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using PrecastConcretePlantContracts.StoragesContracts;
 using PrecastConcretePlantDatabaseImplement.Implements;
@@ -42,6 +44,11 @@ namespace PrecastConcretePlantView
             currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IReinforcedLogic, ReinforcedLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
