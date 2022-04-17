@@ -70,7 +70,7 @@ namespace PrecastConcretePlantListImplement.Implements
                 ReinforcedId = order.ReinforcedId,
                 ReinforcedName = reinforcedName,
                 Count = order.Count,
-                Status = order.Status.ToString(),
+                Status = order.Status,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
