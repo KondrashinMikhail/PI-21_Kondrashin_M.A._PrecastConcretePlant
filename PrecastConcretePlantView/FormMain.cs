@@ -120,8 +120,7 @@ namespace PrecastConcretePlantView
                 {
                     FileName = dialog.FileName
                 });
-                MessageBox.Show("Âûïîëíåíî", "Óñïåõ", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+                MessageBox.Show("Âûïîëíåíî", "Óñïåõ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void êîìïîíåíòûÏîÆÁÈToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,6 +134,5 @@ namespace PrecastConcretePlantView
             form.ShowDialog();
         }
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
-        
     }
 }
