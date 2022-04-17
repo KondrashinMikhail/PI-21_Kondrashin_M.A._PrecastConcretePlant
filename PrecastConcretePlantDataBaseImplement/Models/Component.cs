@@ -11,5 +11,7 @@ namespace PrecastConcretePlantDatabaseImplement.Models
         public string ComponentName { get; set; }
         [ForeignKey("ComponentId")]
         public virtual List<ReinforcedComponent> ReinforcedComponents { get; set; }
+        [ForeignKey("ComponentId")]
+        public virtual List<WarehouseComponent> WarehouseComponents { get; set; }
     }
 }

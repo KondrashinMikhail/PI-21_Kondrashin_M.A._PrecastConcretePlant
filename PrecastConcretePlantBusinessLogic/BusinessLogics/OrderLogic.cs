@@ -37,7 +37,8 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Принят))
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            if (order.Status == OrderStatus.Принят)
             {
                 if (!_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
                     throw new Exception("На складах недостаточно компонентов");

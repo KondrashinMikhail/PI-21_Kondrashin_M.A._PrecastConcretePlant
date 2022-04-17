@@ -39,7 +39,7 @@ namespace PrecastConcretePlantListImplement.Implements
         {
             Warehouse tempWarehouse = null;
             foreach (var warehouse in source.Warehouses) if (warehouse.Id == model.Id) tempWarehouse = warehouse;
-            if (tempWarehouse == null) throw new Exception("Элемента не найлен");
+            if (tempWarehouse == null) throw new Exception("Элемент не найден");
             CreateModel(model, tempWarehouse);
         }
         public void Delete(WarehouseBindingModel model)

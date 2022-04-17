@@ -12,7 +12,7 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
-    [Migration("20220310202306_InitialCreate")]
+    [Migration("20220417155331_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,56 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.ToTable("ReinforcedComponents");
                 });
 
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WarehouseManagerFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
+                });
+
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ComponentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseComponents");
+                });
+
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Reinforced", "Reinforced")
@@ -150,9 +200,30 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Reinforced");
                 });
 
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Component", "Component")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
                 {
                     b.Navigation("ReinforcedComponents");
+
+                    b.Navigation("WarehouseComponents");
                 });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Reinforced", b =>
@@ -160,6 +231,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("ReinforcedComponents");
+                });
+
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Navigation("WarehouseComponents");
                 });
 #pragma warning restore 612, 618
         }
