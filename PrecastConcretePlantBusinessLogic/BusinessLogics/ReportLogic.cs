@@ -94,12 +94,12 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<ReportGeneralOrdersViewModel> GetGeneralOrders(ReportBindingModel model)
         {
             return _orderStorage.GetFullList()
-                .GroupBy(order => order.DateCreate)
+                .GroupBy(order => order.DateCreate.ToLongDateString())
                 .Select(x => new ReportGeneralOrdersViewModel
                 {
-                    Date = x.Key,
+                    Date = Convert.ToDateTime(x.Key),
                     GeneralCount = x.Count(),
-                    GeneralSum = (int) x.Sum(y => y.Sum)
+                    GeneralSum = x.Sum(order => order.Sum)
                 })
                 .ToList();
         }

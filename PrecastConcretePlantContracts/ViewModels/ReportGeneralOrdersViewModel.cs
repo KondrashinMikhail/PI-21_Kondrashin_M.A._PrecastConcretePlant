@@ -10,6 +10,6 @@ namespace PrecastConcretePlantContracts.ViewModels
     {
         public DateTime Date { get; set; }
         public int GeneralCount { get; set; }
-        public int GeneralSum { get; set; }
+        public decimal GeneralSum { get; set; }
     }
 }

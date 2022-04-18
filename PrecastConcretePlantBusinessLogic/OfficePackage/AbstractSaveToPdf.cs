@@ -58,7 +58,7 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage
             {
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> { order.Date.ToShortDateString(), order.GeneralCount.ToString(), order.GeneralCount.ToString() },
+                    Texts = new List<string> { order.Date.ToShortDateString(), order.GeneralCount.ToString(), order.GeneralSum.ToString() },
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Left
                 });
