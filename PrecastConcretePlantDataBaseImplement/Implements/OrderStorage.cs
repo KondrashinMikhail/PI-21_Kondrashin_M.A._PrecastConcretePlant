@@ -61,7 +61,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 DateImplement = model.DateImplement
             };
             context.Orders.Add(order);
-            CreateModel(order);
+            context.SaveChanges();
+            CreateModel(model, order);
             context.SaveChanges();
         }
         public void Update(OrderBindingModel model)
@@ -75,7 +76,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
-            CreateModel(order);
+            CreateModel(model, order);
             context.SaveChanges();
         }
         public void Delete(OrderBindingModel model)
@@ -88,6 +89,21 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 context.SaveChanges();
             }
             else throw new Exception("Элемент не найден");
+        }
+        private Order CreateModel(OrderBindingModel model, Order order)
+        {
+            if (model == null) return null;
+            var context = new PrecastConcretePlantDatabase();
+            var element = context.Reinforceds.FirstOrDefault(rec => rec.Id == model.ReinforcedId);
+            if (element != null)
+            {
+                if (element.Orders == null) element.Orders = new List<Order>();
+                element.Orders.Add(order);
+                context.Reinforceds.Update(element);
+                context.SaveChanges();
+            }
+            else throw new Exception("Элемент не найден");
+            return order;
         }
         private OrderViewModel CreateModel(Order order) 
         {

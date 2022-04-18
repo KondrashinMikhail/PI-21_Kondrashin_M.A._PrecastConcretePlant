@@ -37,13 +37,16 @@
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКомпонентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.компонентыПоЖБИToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокКонкретныхЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.компонентыНаСкладахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.buttonTakeOrderInWork = new System.Windows.Forms.Button();
             this.buttonOrderReady = new System.Windows.Forms.Button();
             this.buttonIssuedOrder = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.общийСписокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -104,7 +107,10 @@
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.списокКомпонентовToolStripMenuItem,
             this.компонентыПоЖБИToolStripMenuItem,
-            this.списокЗаказовToolStripMenuItem});
+            this.списокКонкретныхЗаказовToolStripMenuItem,
+            this.списокСкладовToolStripMenuItem,
+            this.компонентыНаСкладахToolStripMenuItem,
+            this.общийСписокЗаказовToolStripMenuItem});
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
             this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
@@ -112,23 +118,37 @@
             // списокКомпонентовToolStripMenuItem
             // 
             this.списокКомпонентовToolStripMenuItem.Name = "списокКомпонентовToolStripMenuItem";
-            this.списокКомпонентовToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
+            this.списокКомпонентовToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
             this.списокКомпонентовToolStripMenuItem.Text = "Список компонентов";
             this.списокКомпонентовToolStripMenuItem.Click += new System.EventHandler(this.списокКомпонентовToolStripMenuItem_Click);
             // 
             // компонентыПоЖБИToolStripMenuItem
             // 
             this.компонентыПоЖБИToolStripMenuItem.Name = "компонентыПоЖБИToolStripMenuItem";
-            this.компонентыПоЖБИToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
+            this.компонентыПоЖБИToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
             this.компонентыПоЖБИToolStripMenuItem.Text = "Компоненты по ЖБИ";
             this.компонентыПоЖБИToolStripMenuItem.Click += new System.EventHandler(this.компонентыПоЖБИToolStripMenuItem_Click);
             // 
-            // списокЗаказовToolStripMenuItem
+            // списокКонкретныхЗаказовToolStripMenuItem
             // 
-            this.списокЗаказовToolStripMenuItem.Name = "списокЗаказовToolStripMenuItem";
-            this.списокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
-            this.списокЗаказовToolStripMenuItem.Text = "Список заказов";
-            this.списокЗаказовToolStripMenuItem.Click += new System.EventHandler(this.списокЗаказовToolStripMenuItem_Click);
+            this.списокКонкретныхЗаказовToolStripMenuItem.Name = "списокКонкретныхЗаказовToolStripMenuItem";
+            this.списокКонкретныхЗаказовToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
+            this.списокКонкретныхЗаказовToolStripMenuItem.Text = "Список конкретных заказов";
+            this.списокКонкретныхЗаказовToolStripMenuItem.Click += new System.EventHandler(this.списокКонкретныхЗаказовToolStripMenuItem_Click);
+            // 
+            // списокСкладовToolStripMenuItem
+            // 
+            this.списокСкладовToolStripMenuItem.Name = "списокСкладовToolStripMenuItem";
+            this.списокСкладовToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
+            this.списокСкладовToolStripMenuItem.Text = "Список складов";
+            this.списокСкладовToolStripMenuItem.Click += new System.EventHandler(this.списокСкладовToolStripMenuItem_Click);
+            // 
+            // компонентыНаСкладахToolStripMenuItem
+            // 
+            this.компонентыНаСкладахToolStripMenuItem.Name = "компонентыНаСкладахToolStripMenuItem";
+            this.компонентыНаСкладахToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
+            this.компонентыНаСкладахToolStripMenuItem.Text = "Компоненты на складах";
+            this.компонентыНаСкладахToolStripMenuItem.Click += new System.EventHandler(this.компонентыНаСкладахToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
@@ -190,6 +210,13 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // общийСписокЗаказовToolStripMenuItem
+            // 
+            this.общийСписокЗаказовToolStripMenuItem.Name = "общийСписокЗаказовToolStripMenuItem";
+            this.общийСписокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(286, 26);
+            this.общийСписокЗаказовToolStripMenuItem.Text = "Общий список заказов";
+            this.общийСписокЗаказовToolStripMenuItem.Click += new System.EventHandler(this.общийСписокЗаказовToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -232,6 +259,9 @@
         private ToolStripMenuItem отчетыToolStripMenuItem;
         private ToolStripMenuItem списокКомпонентовToolStripMenuItem;
         private ToolStripMenuItem компонентыПоЖБИToolStripMenuItem;
-        private ToolStripMenuItem списокЗаказовToolStripMenuItem;
+        private ToolStripMenuItem списокКонкретныхЗаказовToolStripMenuItem;
+        private ToolStripMenuItem списокСкладовToolStripMenuItem;
+        private ToolStripMenuItem компонентыНаСкладахToolStripMenuItem;
+        private ToolStripMenuItem общийСписокЗаказовToolStripMenuItem;
     }
 }

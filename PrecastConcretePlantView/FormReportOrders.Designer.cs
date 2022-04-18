@@ -110,7 +110,7 @@
             this.ClientSize = new System.Drawing.Size(998, 450);
             this.Controls.Add(this.panel);
             this.Name = "FormReportOrders";
-            this.Text = "FormReportOrders";
+            this.Text = "Отчет по конкретным заказам";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             this.ResumeLayout(false);

@@ -12,5 +12,6 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.HelperModels
         public string FileName { get; set; }
         public string Title { get; set; }
         public List<ReinforcedViewModel> Reinforceds { get; set; }
+        public List<WarehouseViewModel> Warehouses { get; set; }
     }
 }
