@@ -64,6 +64,23 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.ToTable("Components");
                 });
 
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImplementerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -84,7 +101,14 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ImplementerId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<int>("ReinforcedId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SearchStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -96,6 +120,8 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.HasIndex("ReinforcedId");
 
@@ -156,6 +182,12 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Reinforced", "Reinforced")
                         .WithMany("Orders")
                         .HasForeignKey("ReinforcedId")
@@ -163,6 +195,8 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+
+                    b.Navigation("Implementer");
 
                     b.Navigation("Reinforced");
                 });
@@ -194,6 +228,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
                 {
                     b.Navigation("ReinforcedComponents");
+                });
+
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Reinforced", b =>

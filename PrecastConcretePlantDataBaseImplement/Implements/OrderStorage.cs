@@ -17,6 +17,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             using var context = new PrecastConcretePlantDatabase();
             return context.Orders
                 .Include(rec => rec.Reinforced)
+                .Include(rec => rec.Implementer)
                 .Select(CreateModel)
                 .ToList();
         }
@@ -24,19 +25,28 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         {
             if (model == null) return null;
             var context = new PrecastConcretePlantDatabase();
-            return context.Orders.Include(rec => rec.Reinforced)
-                .Where(rec => rec.Id == model.Id
-                || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) 
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) 
-                || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+            return context.Orders
+                .Include(rec => rec.Reinforced)
+                .Include(rec => rec.Client)
+                .Include(rec => rec.Implementer)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+               (model.ClientId.HasValue && rec.ClientId == model.ClientId) || 
+               (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+               (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(CreateModel)
                 .ToList();
+
         }
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null) return null;
             var context = new PrecastConcretePlantDatabase();
-            var order = context.Orders.Include(rec => rec.Reinforced).FirstOrDefault(rec => rec.Id == model.Id);
+            var order = context.Orders
+                .Include(rec => rec.Reinforced)
+                .Include(rec => rec.ClientId)
+                .Include(rec => rec.ImplementerId)
+                .FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
         public void Insert(OrderBindingModel model)
@@ -46,11 +56,13 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             {
                 ReinforcedId = model.ReinforcedId,
                 ClientId = (int)model.ClientId,
+                ImplementerId = model.ImplementerId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
                 DateCreate = model.DateCreate,
-                DateImplement = model.DateImplement
+                DateImplement = model.DateImplement,
+                SearchStatus = model.SearchStatus
             };
             context.Orders.Add(order);
             CreateModel(model, order);
@@ -61,12 +73,14 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var order = context.Orders.FirstOrDefault(recc => recc.Id == model.Id);
             if (order == null) throw new Exception("Элемент не найден");
             order.ReinforcedId = model.ReinforcedId;
-            order.ClientId = (int)model.ClientId;
+            order.ClientId = (int) model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.SearchStatus = model.SearchStatus;
             CreateModel(model, order);
             context.SaveChanges();
         }
@@ -85,12 +99,15 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         {
             if (model == null) return null;
             var context = new PrecastConcretePlantDatabase();
-            var element = context.Reinforceds.FirstOrDefault(rec => rec.Id == model.ReinforcedId);
-            if (element != null)
+            var reinforced = context.Reinforceds.FirstOrDefault(rec => rec.Id == model.ReinforcedId);
+            var implementer = context.Implementers.FirstOrDefault(rec => rec.Id == model.ImplementerId);
+            if (reinforced != null)
             {
-                if (element.Orders == null) element.Orders = new List<Order>();
-                element.Orders.Add(order);
-                context.Reinforceds.Update(element);
+                if (reinforced.Orders == null) reinforced.Orders = new List<Order>();
+                if (implementer != null) if (implementer.Orders == null) implementer.Orders = new List<Order>();
+                reinforced.Orders.Add(order);
+                context.Reinforceds.Update(reinforced);
+                context.Implementers.Update(implementer);
                 context.SaveChanges();
             }
             else throw new Exception("Элемент не найден");
@@ -100,18 +117,22 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         {
             var context = new PrecastConcretePlantDatabase();
             var reinforced = context.Reinforceds.FirstOrDefault(rec => rec.Id == order.ReinforcedId);
+            var implementer = context.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId);
             return new OrderViewModel
             {
                 Id = order.Id,
                 ReinforcedId = order.ReinforcedId,
                 ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 ClientName = context.Clients.Include(rec => rec.Orders).FirstOrDefault(rec1 => rec1.Id == order.ClientId).ClientName,
                 ReinforcedName = reinforced.ReinforcedName,
+                ImplementerName = implementer.ImplementerName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
+                SearchStatus = order.SearchStatus
             };
         }
     }

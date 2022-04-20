@@ -9,8 +9,11 @@ namespace PrecastConcretePlantContracts.ViewModels
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int ReinforcedId { get; set; }
+        public int? ImplementerId { get; set; }
         [DisplayName("ФИО клиента")]
         public string ClientName { get; set; }
+        [DisplayName("ФИО исполнителя")]
+        public string ImplementerName { get; set; }
         [DisplayName("Железобетонные изделия")]
         public string ReinforcedName { get; set; }
         [DisplayName("Количество")]
@@ -23,5 +26,7 @@ namespace PrecastConcretePlantContracts.ViewModels
         public DateTime DateCreate { get; set; }
         [DisplayName("Дата выполнения")]
         public DateTime? DateImplement { get; set; }
+        [DisplayName("Поисковый статус")]
+        public OrderStatus? SearchStatus { get; set; }
     }
 }

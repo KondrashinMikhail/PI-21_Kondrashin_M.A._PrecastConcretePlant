@@ -23,9 +23,11 @@ namespace PrecastConcretePlantFileImplement.Implements
         {
             if (model == null) return null;
             return source.Orders
-                .Where(rec => rec.ReinforcedId.ToString().Contains(model.ReinforcedId.ToString()) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
-                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date
-                && rec.DateCreate.Date <= model.DateTo.Value.Date) || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+               (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+               (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+               (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(CreateModel)
                 .ToList();
         }
@@ -52,11 +54,13 @@ namespace PrecastConcretePlantFileImplement.Implements
         {
             order.ReinforcedId = model.ReinforcedId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.SearchStatus = model.SearchStatus;
             return order;
         }
         private OrderViewModel CreateModel(Order order)
@@ -68,11 +72,14 @@ namespace PrecastConcretePlantFileImplement.Implements
                 ClientName = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientName,
                 ReinforcedId = order.ReinforcedId,
                 ReinforcedName = source.Reinforceds.FirstOrDefault(x => x.Id == order.ReinforcedId)?.ReinforcedName,
+                ImplementerId = order.ImplementerId,
+                ImplementerName = source.Implementers.FirstOrDefault(x => x.Id == order.ImplementerId)?.ImplementerName,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 Status = order.Status,
-                DateImplement = order.DateImplement
+                DateImplement = order.DateImplement,
+                SearchStatus = order.SearchStatus
             };
         }
     }

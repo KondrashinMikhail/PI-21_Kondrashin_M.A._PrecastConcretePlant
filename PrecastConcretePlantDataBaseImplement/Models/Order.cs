@@ -10,6 +10,7 @@ namespace PrecastConcretePlantDatabaseImplement.Models
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int ReinforcedId { get; set; }
+        public int? ImplementerId { get; set; }
         [Required]
         public int Count { get; set; }
         [Required]
@@ -19,7 +20,9 @@ namespace PrecastConcretePlantDatabaseImplement.Models
         [Required]
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
+        public OrderStatus? SearchStatus { get; set; }
         public virtual Reinforced Reinforced { get; set; }
         public virtual Client Client { get; set; }
+        public virtual Implementer Implementer { get; set; }
     }
 }
