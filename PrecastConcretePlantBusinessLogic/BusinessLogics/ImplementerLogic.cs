@@ -17,14 +17,14 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<ImplementerViewModel> Read(ImplementerBindingModel model)
         {
             if (model == null) return _implementerStorage.GetFullList();
-            if (model.Id != null) return new List<ImplementerViewModel> { _implementerStorage.GetElement(model) };
+            if (model.Id.HasValue) return new List<ImplementerViewModel> { _implementerStorage.GetElement(model) };
             return _implementerStorage.GetFilteredList(model);
         }
         public void CreateOrUpdate(ImplementerBindingModel model)
         {
             var element = _implementerStorage.GetElement(new ImplementerBindingModel { ImplementerName = model.ImplementerName });
-            if (element != null && element.Id != model.Id) throw new Exception("Уже есть исполнитель с таким названием");
-            if (model.Id != null) _implementerStorage.Update(model);
+            if (element != null && element.Id != model.Id) throw new Exception("Уже есть исполнитель с таким ФИО");
+            if (model.Id.HasValue) _implementerStorage.Update(model);
             else _implementerStorage.Insert(model);
         }
         public void Delete(ImplementerBindingModel model)

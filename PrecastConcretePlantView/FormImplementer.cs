@@ -1,33 +1,55 @@
 ﻿using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PrecastConcretePlantView
 {
-    public partial class FormComponent : Form
+    public partial class FormImplementer : Form
     {
         private int? id;
         public int Id { set { id = value; } }
-        private readonly IComponentLogic _logic;
-        public FormComponent(IComponentLogic logic)
+        private readonly IImplementerLogic _logic;
+        public FormImplementer(IImplementerLogic logic)
         {
             InitializeComponent();
             _logic = logic;
+        }
+        private void FormImplementer_Load(object sender, EventArgs e)
+        {
+            if (id != null)
+            {
+                try
+                {
+                    var view = _logic.Read(new ImplementerBindingModel { Id = id })?[0];
+                    if (view != null) textBoxName.Text = view.ImplementerName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните ФИО", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                _logic.CreateOrUpdate(new ComponentBindingModel
+                _logic.CreateOrUpdate(new ImplementerBindingModel
                 {
                     Id = id,
-                    ComponentName = textBoxName.Text
+                    ImplementerName = textBoxName.Text
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
@@ -42,21 +64,6 @@ namespace PrecastConcretePlantView
         {
             DialogResult = DialogResult.Cancel;
             Close();
-        }
-        private void FormComponent_Load(object sender, EventArgs e)
-        {
-            if (id.HasValue)
-            {
-                try
-                {
-                    var view = _logic.Read(new ComponentBindingModel { Id = id })?[0];
-                    if (view != null) textBoxName.Text = view.ComponentName;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
     }
 }

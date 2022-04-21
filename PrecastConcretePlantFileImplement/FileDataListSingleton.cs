@@ -143,6 +143,9 @@ namespace PrecastConcretePlantFileImplement
                     list.Add(new Implementer
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ImplementerName = Convert.ToString(elem.Attribute("ImplementerName").Value),
+                        WorkingTime = Convert.ToInt32(elem.Attribute("WorkingTime").Value),
+                        PauseTime = Convert.ToInt32(elem.Attribute("PauseTime").Value)
                     });
                 }
             }
@@ -235,7 +238,9 @@ namespace PrecastConcretePlantFileImplement
                 {
                     xElement.Add(new XElement("Implementer",
                         new XAttribute("Id", implementer.Id),
-                        new XElement("ImplementerName", implementer.ImplementerName)));
+                        new XElement("ImplementerName", implementer.ImplementerName),
+                        new XElement("WorkingTime", implementer.WorkingTime),
+                        new XElement("PauseTime", implementer.PauseTime)));
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);

@@ -43,7 +43,9 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImplementerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImplementerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingTime = table.Column<int>(type: "int", nullable: false),
+                    PauseTime = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,15 +72,14 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
                     ReinforcedId = table.Column<int>(type: "int", nullable: false),
-                    ImplementerId = table.Column<int>(type: "int", nullable: false),
+                    ImplementerId = table.Column<int>(type: "int", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     DateCreate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateImplement = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SearchStatus = table.Column<int>(type: "int", nullable: true)
+                    DateImplement = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,8 +94,7 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         name: "FK_Orders_Implementers_ImplementerId",
                         column: x => x.ImplementerId,
                         principalTable: "Implementers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Reinforceds_ReinforcedId",
                         column: x => x.ReinforcedId,

@@ -57,6 +57,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 };
                 context.Reinforceds.Add(reinforced);
                 context.SaveChanges();
+                CreateModel(model, reinforced, context);
+                context.SaveChanges();
                 transaction.Commit();
             }
             catch

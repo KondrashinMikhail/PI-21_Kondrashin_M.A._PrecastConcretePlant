@@ -11,9 +11,10 @@ namespace PrecastConcretePlantDatabaseImplement.Models
     public class Implementer
     {
         public int Id { get; set; }
-        [Required]
         public string ImplementerName { get; set; }
-        [ForeignKey("ImplementerId")]
+        public int WorkingTime { get; set; }
+        public int PauseTime { get; set; }
+        [ForeignKey("ImplementerId")] 
         public virtual List<Order> Orders { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
-    [Migration("20220420195004_InitialCreate")]
+    [Migration("20220421193913_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,12 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Implementers");
@@ -104,13 +110,9 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ImplementerId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("ReinforcedId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SearchStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -186,9 +188,7 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
 
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Implementer", "Implementer")
                         .WithMany("Orders")
-                        .HasForeignKey("ImplementerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImplementerId");
 
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Reinforced", "Reinforced")
                         .WithMany("Orders")

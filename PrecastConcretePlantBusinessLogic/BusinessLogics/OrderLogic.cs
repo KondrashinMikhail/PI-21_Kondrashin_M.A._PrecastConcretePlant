@@ -14,7 +14,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null) return _orderStorage.GetFullList();
-            if (model.Id != null) return new List<OrderViewModel> { _orderStorage.GetElement(model) };
+            if (model.Id.HasValue) return new List<OrderViewModel> { _orderStorage.GetElement(model) };
             return _orderStorage.GetFilteredList(model);
         }
         public void CreateOrder(CreateOrderBindingModel model)
@@ -25,7 +25,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                 ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
-                Status = 0,
+                Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now
             });
         }
@@ -39,6 +39,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
+                    ImplementerId = tempModel.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Выполняется,
                     Count = tempModel.Count,
@@ -58,6 +59,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
+                    ImplementerId=tempModel.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Готов,
                     Count = tempModel.Count,
@@ -77,6 +79,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
+                    ImplementerId = tempModel.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Выдан,
                     Count = tempModel.Count,
