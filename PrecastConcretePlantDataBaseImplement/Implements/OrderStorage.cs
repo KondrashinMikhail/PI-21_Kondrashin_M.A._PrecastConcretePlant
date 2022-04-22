@@ -116,7 +116,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
+                DateImplement = order.DateImplement
             };
         }
     }
