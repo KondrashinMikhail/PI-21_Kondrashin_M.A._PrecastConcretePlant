@@ -33,13 +33,17 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         {
             if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Принят)
             {
-                var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+                var tempModel = _orderStorage.GetElement(new OrderBindingModel 
+                {
+                    Id = model.OrderId,
+                    ImplementerId = model.ImplementerId
+                });
                 _orderStorage.Update(new OrderBindingModel
                 {
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
-                    ImplementerId = tempModel.ImplementerId,
+                    ImplementerId = model.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Выполняется,
                     Count = tempModel.Count,
@@ -59,7 +63,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
-                    ImplementerId=tempModel.ImplementerId,
+                    ImplementerId = model.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Готов,
                     Count = tempModel.Count,
@@ -79,7 +83,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     Id = tempModel.Id,
                     ReinforcedId = tempModel.ReinforcedId,
                     ClientId = tempModel.ClientId,
-                    ImplementerId = tempModel.ImplementerId,
+                    ImplementerId = model.ImplementerId,
                     Sum = tempModel.Sum,
                     Status = OrderStatus.Выдан,
                     Count = tempModel.Count,

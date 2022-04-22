@@ -14,6 +14,5 @@ namespace PrecastConcretePlantFileImplement.Models
         public OrderStatus Status { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
-        public OrderStatus? SearchStatus { get; set; }
     }
 }

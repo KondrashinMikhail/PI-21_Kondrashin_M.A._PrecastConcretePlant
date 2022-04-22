@@ -32,8 +32,8 @@ namespace PrecastConcretePlantFileImplement.Implements
             var element = new Implementer
             {
                 Id = maxId + 1,
-                WorkingTime = new Random().Next(1, 5),
-                PauseTime = new Random().Next(1, 5)
+                WorkingTime = model.WorkingTime,
+                PauseTime = model.PauseTime
             };
             source.Implementers.Add(CreateModel(model, element));
         }

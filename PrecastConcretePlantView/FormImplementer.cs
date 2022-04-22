@@ -29,7 +29,12 @@ namespace PrecastConcretePlantView
                 try
                 {
                     var view = _logic.Read(new ImplementerBindingModel { Id = id })?[0];
-                    if (view != null) textBoxName.Text = view.ImplementerName;
+                    if (view != null)
+                    { 
+                        textBoxName.Text = view.ImplementerName;
+                        textBoxWorkingTime.Text = view.WorkingTime.ToString();
+                        textBoxPauseTime.Text = view.PauseTime.ToString();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -49,7 +54,9 @@ namespace PrecastConcretePlantView
                 _logic.CreateOrUpdate(new ImplementerBindingModel
                 {
                     Id = id,
-                    ImplementerName = textBoxName.Text
+                    ImplementerName = textBoxName.Text,
+                    WorkingTime = Convert.ToInt32(textBoxWorkingTime.Text),
+                    PauseTime = Convert.ToInt32(textBoxPauseTime.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

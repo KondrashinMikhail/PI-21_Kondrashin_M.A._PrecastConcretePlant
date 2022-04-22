@@ -72,7 +72,6 @@ namespace PrecastConcretePlantListImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
-            order.SearchStatus = model.SearchStatus;
             return order;
         }
         private OrderViewModel CreateModel(Order order)
@@ -104,7 +103,6 @@ namespace PrecastConcretePlantListImplement.Implements
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
-                SearchStatus = order.SearchStatus
             };
         }
     }

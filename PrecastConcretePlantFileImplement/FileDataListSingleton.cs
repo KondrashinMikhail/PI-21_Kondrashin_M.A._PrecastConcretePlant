@@ -80,7 +80,6 @@ namespace PrecastConcretePlantFileImplement
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
                         DateImplement = string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? (DateTime?)null : Convert.ToDateTime(elem.Element("DateImplement").Value),
-                        SearchStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("SearchStatus")?.Value)
                     });
                 }
             }
@@ -182,8 +181,7 @@ namespace PrecastConcretePlantFileImplement
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
                     new XElement("DateCreate", order.DateCreate),
-                    new XElement("DateImplement", order.DateImplement),
-                    new XElement("SearchStatus", order.SearchStatus)));
+                    new XElement("DateImplement", order.DateImplement)));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(OrderFileName);

@@ -64,8 +64,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         private static Implementer CreateModel(ImplementerBindingModel model, Implementer implementer)
         {
             implementer.ImplementerName = model.ImplementerName;
-            implementer.WorkingTime = new Random().Next(1, 5);
-            implementer.PauseTime = new Random().Next(1, 5);
+            implementer.WorkingTime = model.WorkingTime;
+            implementer.PauseTime = model.PauseTime;
             return implementer;
         }
         private static ImplementerViewModel CreateModel(Implementer implementer)

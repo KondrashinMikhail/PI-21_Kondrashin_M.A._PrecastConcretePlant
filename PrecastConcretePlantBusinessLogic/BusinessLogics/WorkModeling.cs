@@ -22,8 +22,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
             _orderLogic = orderLogic;
             var implementers = implementerLogic.Read(null);
             ConcurrentBag<OrderViewModel> orders = new (_orderLogic.Read(new OrderBindingModel { SearchStatus = OrderStatus.Принят }));
-            foreach (var implementer in implementers)
-                Task.Run(async () => await WorkerWorkAsync(implementer, orders));
+            foreach (var implementer in implementers) Task.Run(async () => await WorkerWorkAsync(implementer, orders));
         }
         private async Task WorkerWorkAsync(ImplementerViewModel implementer, ConcurrentBag<OrderViewModel> orders)
         {
@@ -50,7 +49,11 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                             ImplementerId = implementer.Id 
                         });
                         Thread.Sleep(implementer.WorkingTime * random.Next(1, 5) * order.Count);
-                        _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+                        _orderLogic.FinishOrder(new ChangeStatusBindingModel 
+                        {
+                            OrderId = order.Id,
+                            ImplementerId = implementer.Id
+                        });
                         Thread.Sleep(implementer.PauseTime);
                     }
                 }

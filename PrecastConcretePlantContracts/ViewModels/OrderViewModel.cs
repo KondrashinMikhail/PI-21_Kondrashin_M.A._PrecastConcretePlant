@@ -26,7 +26,5 @@ namespace PrecastConcretePlantContracts.ViewModels
         public DateTime DateCreate { get; set; }
         [DisplayName("Дата выполнения")]
         public DateTime? DateImplement { get; set; }
-        [DisplayName("Поисковый статус")]
-        public OrderStatus? SearchStatus { get; set; }
     }
 }

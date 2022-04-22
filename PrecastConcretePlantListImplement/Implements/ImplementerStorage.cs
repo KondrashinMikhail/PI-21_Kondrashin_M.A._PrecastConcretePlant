@@ -40,8 +40,8 @@ namespace PrecastConcretePlantListImplement.Implements
             var tempImplementer = new Implementer 
             {
                 Id = 1,
-                WorkingTime = new Random().Next(1, 5),
-                PauseTime = new Random().Next(1, 5),
+                WorkingTime = model.WorkingTime,
+                PauseTime = model.PauseTime
             };
             foreach (var implementer in source.Implementers)
                 if (implementer.Id >= tempImplementer.Id) tempImplementer.Id = implementer.Id + 1;

@@ -36,6 +36,13 @@ namespace PrecastConcretePlantView
                     dataGridView.Columns[2].Visible = false;
                     dataGridView.Columns[3].Visible = false;
                     dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -75,9 +82,14 @@ namespace PrecastConcretePlantView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                int implementerId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[3].Value);
                 try
                 {
-                    _orderLogic.DeliveryOrder(new ChangeStatusBindingModel { OrderId = id });
+                    _orderLogic.DeliveryOrder(new ChangeStatusBindingModel 
+                    { 
+                        OrderId = id,
+                        ImplementerId = implementerId
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
