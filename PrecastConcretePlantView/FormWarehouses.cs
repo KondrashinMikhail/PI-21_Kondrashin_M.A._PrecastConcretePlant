@@ -20,7 +20,7 @@ namespace PrecastConcretePlantView
         }
         private void LoadData()
         {
-            //try
+            try
             {
                 var list = _logic.Read(null);
                 if (list != null)
@@ -31,9 +31,9 @@ namespace PrecastConcretePlantView
                     dataGridView.Columns[4].Visible = false;
                 }
             }
-            //catch (Exception ex)
+            catch (Exception ex)
             {
-              //  MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void buttonAdd_Click(object sender, EventArgs e)
