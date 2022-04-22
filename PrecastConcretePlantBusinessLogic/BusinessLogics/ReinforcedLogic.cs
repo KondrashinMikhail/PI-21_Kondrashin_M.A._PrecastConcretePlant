@@ -21,7 +21,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public void CreateOrUpdate(ReinforcedBindingModel model)
         {
             var element = _reinforcedStorage.GetElement(new ReinforcedBindingModel { ReinforcedName = model.ReinforcedName });
-            if (element != null && element.Id != model.Id) throw new Exception("Уже есть пицца с таким названием");
+            if (element != null && element.Id != model.Id) throw new Exception("Уже есть железобетонное изделие с таким названием");
             if (model.Id.HasValue) _reinforcedStorage.Update(model);
             else _reinforcedStorage.Insert(model);
         }

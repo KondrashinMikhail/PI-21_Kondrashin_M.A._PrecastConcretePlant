@@ -38,7 +38,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Принят))
+            if (order.Status == OrderStatus.Принят)
             {
                 if (!_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
                     throw new Exception("На складах недостаточно компонентов");
@@ -57,7 +57,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Выполняется))
+            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Выполняется)
             {
                 var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
                 _orderStorage.Update(new OrderBindingModel
@@ -75,7 +75,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == Convert.ToString(OrderStatus.Готов))
+            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Готов)
             {
                 var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
                 _orderStorage.Update(new OrderBindingModel
