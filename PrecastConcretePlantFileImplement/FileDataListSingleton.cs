@@ -16,11 +16,13 @@ namespace PrecastConcretePlantFileImplement
         private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XMLDoc/Reinforced.xml";
         private readonly string ClientFileName = "C:/Users/user/source/repos/XMLDoc/Client.xml";
         private readonly string ImplementerFileName = "C:/Users/user/source/repos/XMLDoc/Implemeter.xml";
+        private readonly string MessageInfoFileName = "C:/Users/user/source/repos/XMLDoc/MessageInfo.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Reinforced> Reinforceds { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> MessagesInfo { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
@@ -28,6 +30,7 @@ namespace PrecastConcretePlantFileImplement
             Orders = LoadOrders();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            MessagesInfo = LoadMessagesInfo();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -41,6 +44,7 @@ namespace PrecastConcretePlantFileImplement
             SaveReinforceds();
             SaveClients();
             SaveImplementers();
+            SaveMessagesInfo();
         }
         private List<Component> LoadComponents()
         {
@@ -150,6 +154,28 @@ namespace PrecastConcretePlantFileImplement
             }
             return list;
         }
+        private List<MessageInfo> LoadMessagesInfo() 
+        {
+            var list = new List<MessageInfo>();
+            if (File.Exists(MessageInfoFileName)) 
+            {
+                var xDocument = XDocument.Load(MessageInfoFileName);
+                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
+                foreach (var elem in xElements) 
+                {
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = Convert.ToString(elem.Attribute("MessageId").Value),
+                        ClientId = Convert.ToInt32(elem.Attribute("ClientId").Value),
+                        SenderName = Convert.ToString(elem.Attribute("SenderName").Value),
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value),
+                        Subject = Convert.ToString(elem.Attribute("Subject").Value),
+                        Body = Convert.ToString(elem.Attribute("Body").Value)
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -242,6 +268,23 @@ namespace PrecastConcretePlantFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
+            }
+        }
+        private void SaveMessagesInfo() 
+        {
+            if (MessagesInfo != null) 
+            {
+                var xElement = new XElement("MessagesInfo");
+                foreach (var messageInfo in MessagesInfo) 
+                {
+                    xElement.Add(new XElement("MessageInfo",
+                        new XAttribute("MessageId", messageInfo.MessageId),
+                        new XElement("ClientId", messageInfo.ClientId),
+                        new XElement("SenderName", messageInfo.SenderName),
+                        new XElement("DateDelivery", messageInfo.DateDelivery),
+                        new XElement("Subject", messageInfo.Subject),
+                        new XElement("Body", messageInfo.Body)));
+                }
             }
         }
     }

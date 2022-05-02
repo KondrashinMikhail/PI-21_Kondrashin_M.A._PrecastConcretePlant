@@ -43,7 +43,6 @@ namespace PrecastConcretePlantClientApp.Controllers
                     Id = Program.Client.Id,
                     ClientName = fio,
                     Login = login,
-                    Email = login,
                     Password = password
                 });
                 Program.Client.ClientName = fio;
@@ -96,7 +95,6 @@ namespace PrecastConcretePlantClientApp.Controllers
                 {
                     ClientName = fio,
                     Login = login,
-                    Email = login,
                     Password = password
                 });
                 Response.Redirect("Enter");
@@ -131,6 +129,15 @@ namespace PrecastConcretePlantClientApp.Controllers
         {
             ImplemenerViewModel prod = APIClient.GetRequest<ImplemenerViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
             return count * prod.Price;
+        }
+        public IActionResult Messages()
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View(APIClient.GetRequest<List<MessageInfoViewModel>>
+                ($"api/main/GetMessages?clientId={Program.Client.Id}"));
         }
     }
 }
