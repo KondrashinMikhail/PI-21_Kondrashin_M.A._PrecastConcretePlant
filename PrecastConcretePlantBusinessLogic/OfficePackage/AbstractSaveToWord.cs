@@ -30,7 +30,7 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage
                     (reinforced.Price.ToString(), new WordTextProperties { Size = "24" })},
                     TextProperties = new WordTextProperties
                     {
-                        Size = "24",
+                        Size = "24", 
                         JustificationType = WordJustificationType.Both
                     }
                 });
