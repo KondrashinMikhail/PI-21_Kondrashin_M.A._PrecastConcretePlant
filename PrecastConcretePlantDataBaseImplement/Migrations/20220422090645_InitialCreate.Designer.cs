@@ -12,7 +12,11 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
+<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220422090645_InitialCreate.Designer.cs
     [Migration("20220422090645_InitialCreate")]
+========
+    [Migration("20220408103017_InitialCreate")]
+>>>>>>>> FifthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220408103017_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +27,31 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
                 {
@@ -49,6 +78,9 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -68,6 +100,8 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("ReinforcedId");
 
@@ -172,11 +206,19 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Reinforced", "Reinforced")
                         .WithMany("Orders")
                         .HasForeignKey("ReinforcedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
 
                     b.Navigation("Reinforced");
                 });
@@ -200,6 +242,7 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Reinforced");
                 });
 
+<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220422090645_InitialCreate.Designer.cs
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.WarehouseComponent", b =>
                 {
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Component", "Component")
@@ -217,6 +260,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Component");
 
                     b.Navigation("Warehouse");
+========
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
+>>>>>>>> FifthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220408103017_InitialCreate.Designer.cs
                 });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
