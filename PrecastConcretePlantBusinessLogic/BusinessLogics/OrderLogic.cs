@@ -45,10 +45,10 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     throw new Exception("На складах недостаточно компонентов");
                 _orderStorage.Update(new OrderBindingModel
                 {
-                    Id = tempModel.Id,
-                    ReinforcedId = tempModel.ReinforcedId,
-                    ClientId = tempModel.ClientId,
-                    Sum = tempModel.Sum,
+                    Id = order.Id,
+                    ReinforcedId = order.ReinforcedId,
+                    ClientId = order.ClientId,
+                    Sum = order.Sum,
                     Status = OrderStatus.Выполняется,
                     Count = order.Count,
                     DateCreate = order.DateCreate,

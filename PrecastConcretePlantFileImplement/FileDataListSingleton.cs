@@ -15,7 +15,7 @@ namespace PrecastConcretePlantFileImplement
         private readonly string OrderFileName = "C:/Users/user/source/repos/XML/Order.xml";
         private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XML/Reinforced.xml";
         private readonly string WarehouseFileName = "C:/Users/user/source/repos/XML/Warehouse.xml";
-        private readonly string ClientFileName = "C:/Users/user/source/repos/XMLDoc/Client.xml";
+        private readonly string ClientFileName = "C:/Users/user/source/repos/XML/Client.xml";
 
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }

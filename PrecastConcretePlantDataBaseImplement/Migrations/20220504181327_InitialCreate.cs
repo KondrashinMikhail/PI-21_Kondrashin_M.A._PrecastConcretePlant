@@ -191,14 +191,10 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 name: "ReinforcedComponents");
 
             migrationBuilder.DropTable(
-<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220422090645_InitialCreate.cs
                 name: "WarehouseComponents");
-========
-                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Components");
->>>>>>>> FifthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220408103017_InitialCreate.cs
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Reinforceds");

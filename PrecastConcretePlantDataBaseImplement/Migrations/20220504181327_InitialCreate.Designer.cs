@@ -12,11 +12,7 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
-<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220422090645_InitialCreate.Designer.cs
-    [Migration("20220422090645_InitialCreate")]
-========
-    [Migration("20220408103017_InitialCreate")]
->>>>>>>> FifthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220408103017_InitialCreate.Designer.cs
+    [Migration("20220504181327_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,7 +238,6 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Reinforced");
                 });
 
-<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220422090645_InitialCreate.Designer.cs
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.WarehouseComponent", b =>
                 {
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Component", "Component")
@@ -260,11 +255,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Component");
 
                     b.Navigation("Warehouse");
-========
+                });
+
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Client", b =>
                 {
                     b.Navigation("Orders");
->>>>>>>> FifthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220408103017_InitialCreate.Designer.cs
                 });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
