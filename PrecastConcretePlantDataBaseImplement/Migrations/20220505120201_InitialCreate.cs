@@ -38,6 +38,21 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Implementers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImplementerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingTime = table.Column<int>(type: "int", nullable: false),
+                    PauseTime = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Implementers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reinforceds",
                 columns: table => new
                 {
@@ -72,8 +87,9 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
                     ReinforcedId = table.Column<int>(type: "int", nullable: false),
+                    ImplementerId = table.Column<int>(type: "int", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -89,6 +105,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Implementers_ImplementerId",
+                        column: x => x.ImplementerId,
+                        principalTable: "Implementers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Reinforceds_ReinforcedId",
                         column: x => x.ReinforcedId,
@@ -157,6 +178,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_ImplementerId",
+                table: "Orders",
+                column: "ImplementerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ReinforcedId",
                 table: "Orders",
                 column: "ReinforcedId");
@@ -197,7 +223,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 name: "Clients");
 
             migrationBuilder.DropTable(
+<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220505120201_InitialCreate.cs
                 name: "Reinforceds");
+========
+                name: "Implementers");
+>>>>>>>> SixthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220422081921_InitialCreate.cs
 
             migrationBuilder.DropTable(
                 name: "Components");
