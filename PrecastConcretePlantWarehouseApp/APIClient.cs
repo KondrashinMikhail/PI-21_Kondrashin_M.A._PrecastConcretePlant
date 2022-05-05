@@ -17,14 +17,8 @@ namespace PrecastConcretePlantWarehouseApp
         {
             var response = client.GetAsync(requestUrl);
             var result = response.Result.Content.ReadAsStringAsync().Result.ToString();
-            if (response.Result.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<T>(result);
-            }
-            else
-            {
-                throw new Exception(result);
-            }
+            if (response.Result.IsSuccessStatusCode) return JsonConvert.DeserializeObject<T>(result);
+            else throw new Exception(result);
         }
         public static void PostRequest<T>(string requestUrl, T model)
         {
@@ -32,10 +26,7 @@ namespace PrecastConcretePlantWarehouseApp
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = client.PostAsync(requestUrl, data);
             var result = response.Result.Content.ReadAsStringAsync().Result;
-            if (!response.Result.IsSuccessStatusCode)
-            {
-                throw new Exception(result);
-            }
+            if (!response.Result.IsSuccessStatusCode) throw new Exception(result);
         }
     }
 }

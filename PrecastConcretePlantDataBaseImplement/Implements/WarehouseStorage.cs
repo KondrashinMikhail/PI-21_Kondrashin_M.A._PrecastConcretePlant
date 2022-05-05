@@ -83,7 +83,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         }
         public void Delete(WarehouseBindingModel model)
         {
-            using var context = new PrecastConcretePlantDatabase();
+            var context = new PrecastConcretePlantDatabase();
             var element = context.Warehouses.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {

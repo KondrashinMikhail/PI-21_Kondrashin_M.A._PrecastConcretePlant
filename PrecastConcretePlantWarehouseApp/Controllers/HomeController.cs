@@ -74,35 +74,40 @@ namespace PrecastConcretePlantWarehouseApp.Controllers
             return View();
         }
         [HttpPost]
-        public void AddComponent(int id, int componentId, int count) 
+        public void AddComponent(int warehouse, int component, int count) 
         {
             APIClient.PostRequest("api/Warehouse/AddComponentToWarehouse", new WarehouseComponentBindingModel
             {
-                Id = id,
-                ComponentId = componentId,
+                Id = warehouse,
+                ComponentId = component,
                 Count = count
             });
             Response.Redirect("AddComponent");
         }
 
         [HttpGet]
-        [HttpGet]
         public IActionResult Delete()
         {
-            if (Program.Entered == false) return Redirect("~/Home/Enter");
+            if (Program.Entered == false)
+            {
+                return Redirect("~/Home/Enter");
+            }
             ViewBag.Warehouses = APIClient.GetRequest<List<WarehouseViewModel>>("api/Warehouse/GetWarehouseList");
             return View();
         }
         [HttpPost]
         public void Delete(int warehouse)
         {
+            var model = APIClient.GetRequest<WarehouseViewModel>($"api/Warehouse/getwarehouse?warehouseId={warehouse}");
             APIClient.PostRequest("api/Warehouse/DeleteWarehouse", new WarehouseBindingModel
             {
-                Id = warehouse
+                Id = warehouse,
+                WarehouseManagerFullName = model.WarehouseManagerFullName,
+                WarehouseName = model.WarehouseName, 
+                WarehouseComponents = model.WarehouseComponents,
             });
             Response.Redirect("Index");
         }
-
         [HttpGet]
         public IActionResult Update(int warehouseId)
         {

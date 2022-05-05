@@ -27,7 +27,7 @@ namespace PrecastConcretePlantRestApi
             services.AddTransient<IReinforcedLogic, ReinforcedLogic>();
             services.AddTransient<IWarehouseLogic, WarehouseLogic>();
             services.AddTransient<IComponentLogic, ComponentLogic>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrecastConcretePlantRestApi", Version = "v1" });
