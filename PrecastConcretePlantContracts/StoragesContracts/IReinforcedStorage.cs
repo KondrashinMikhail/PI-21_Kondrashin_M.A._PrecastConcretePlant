@@ -6,9 +6,9 @@ namespace PrecastConcretePlantContracts.StoragesContracts
 {
     public interface IReinforcedStorage
     {
-        List<ImplemenerViewModel> GetFullList();
-        List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model);
-        ImplemenerViewModel GetElement(ReinforcedBindingModel model);
+        List<ReinforcedViewModel> GetFullList();
+        List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model);
+        ReinforcedViewModel GetElement(ReinforcedBindingModel model);
         void Insert(ReinforcedBindingModel model);
         void Update(ReinforcedBindingModel model);
         void Delete(ReinforcedBindingModel model);

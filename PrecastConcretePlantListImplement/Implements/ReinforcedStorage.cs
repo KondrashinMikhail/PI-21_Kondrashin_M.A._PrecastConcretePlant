@@ -9,20 +9,20 @@ namespace PrecastConcretePlantListImplement.Implements
     {
         private readonly DataListSingleton source;
         public ReinforcedStorage() => source = DataListSingleton.GetInstance();
-        public List<ImplemenerViewModel> GetFullList()
+        public List<ReinforcedViewModel> GetFullList()
         {
-            var result = new List<ImplemenerViewModel>();
+            var result = new List<ReinforcedViewModel>();
             foreach (var component in source.Reinforceds) result.Add(CreateModel(component));
             return result;
         }
-        public List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model)
+        public List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model)
         {
             if (model == null) return null;
-            var result = new List<ImplemenerViewModel>();
+            var result = new List<ReinforcedViewModel>();
             foreach (var reinforced in source.Reinforceds) if (reinforced.ReinforcedName.Contains(model.ReinforcedName)) result.Add(CreateModel(reinforced));
             return result;
         }
-        public ImplemenerViewModel GetElement(ReinforcedBindingModel model)
+        public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             foreach (var reinforced in source.Reinforceds) if (reinforced.Id == model.Id || reinforced.ReinforcedName == model.ReinforcedName) return CreateModel(reinforced);
@@ -66,7 +66,7 @@ namespace PrecastConcretePlantListImplement.Implements
             }
             return reinforced;
         }
-        private ImplemenerViewModel CreateModel(Reinforced reinforced)
+        private ReinforcedViewModel CreateModel(Reinforced reinforced)
         {
             var reinforcedComponents = new Dictionary<int, (string, int)>();
             foreach (var pc in reinforced.ReinforcedComponents)
@@ -82,7 +82,7 @@ namespace PrecastConcretePlantListImplement.Implements
                 }
                 reinforcedComponents.Add(pc.Key, (componentName, pc.Value));
             }
-            return new ImplemenerViewModel
+            return new ReinforcedViewModel
             {
                 Id = reinforced.Id,
                 ReinforcedName = reinforced.ReinforcedName,

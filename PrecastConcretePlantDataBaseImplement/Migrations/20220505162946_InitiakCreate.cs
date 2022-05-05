@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitiakCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -223,11 +223,10 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                 name: "Clients");
 
             migrationBuilder.DropTable(
-<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220505120201_InitialCreate.cs
-                name: "Reinforceds");
-========
                 name: "Implementers");
->>>>>>>> SixthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220422081921_InitialCreate.cs
+
+            migrationBuilder.DropTable(
+                name: "Reinforceds");
 
             migrationBuilder.DropTable(
                 name: "Components");

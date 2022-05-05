@@ -12,7 +12,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
 {
     public class ReinforcedStorage : IReinforcedStorage
     {
-        public List<ImplemenerViewModel> GetFullList()
+        public List<ReinforcedViewModel> GetFullList()
         {
             using var context = new PrecastConcretePlantDatabase();
             return context.Reinforceds
@@ -22,7 +22,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 .Select(CreateModel)
                 .ToList();
         }
-        public List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model)
+        public List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
@@ -34,7 +34,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 .Select(CreateModel)
                 .ToList();
         }
-        public ImplemenerViewModel GetElement(ReinforcedBindingModel model)
+        public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
@@ -124,9 +124,9 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             return reinforced;
         }
-        private static ImplemenerViewModel CreateModel(Reinforced reinforced)
+        private static ReinforcedViewModel CreateModel(Reinforced reinforced)
         {
-            return new ImplemenerViewModel
+            return new ReinforcedViewModel
             {
                 Id = reinforced.Id,
                 ReinforcedName = reinforced.ReinforcedName,

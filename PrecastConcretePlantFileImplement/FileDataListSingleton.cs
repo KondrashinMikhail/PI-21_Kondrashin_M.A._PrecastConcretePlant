@@ -11,12 +11,14 @@ namespace PrecastConcretePlantFileImplement
     public class FileDataListSingleton
     {
         private static FileDataListSingleton instance;
-        private readonly string ComponentFileName = "C:/Users/user/source/repos/XMLDoc/Component.xml";
-        private readonly string OrderFileName = "C:/Users/user/source/repos/XMLDoc/Order.xml";
-        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XMLDoc/Reinforced.xml";
-        private readonly string ClientFileName = "C:/Users/user/source/repos/XMLDoc/Client.xml";
-        private readonly string ImplementerFileName = "C:/Users/user/source/repos/XMLDoc/Implemeter.xml";
-        
+        private readonly string ComponentFileName = "C:/Users/user/source/repos/XML/Component.xml";
+        private readonly string OrderFileName = "C:/Users/user/source/repos/XML/Order.xml";
+        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XML/Reinforced.xml";
+        private readonly string ClientFileName = "C:/Users/user/source/repos/XML/Client.xml";
+        private readonly string ImplementerFileName = "C:/Users/user/source/repos/XML/Implemeter.xml";
+        private readonly string WarehouseFileName = "C:/Users/user/source/repos/XML/Warehouse.xml";
+
+
 
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }

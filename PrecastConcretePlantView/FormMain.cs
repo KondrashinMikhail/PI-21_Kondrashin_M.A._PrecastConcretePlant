@@ -190,5 +190,11 @@ namespace PrecastConcretePlantView
             form.ShowDialog();
         }
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
+
+        private void запускРаботToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+             _workProcess.DoWork(_implementerLogic, _orderLogic);
+            MessageBox.Show("Запущено", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

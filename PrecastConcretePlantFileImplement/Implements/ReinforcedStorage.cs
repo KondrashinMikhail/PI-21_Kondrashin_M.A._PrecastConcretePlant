@@ -12,13 +12,13 @@ namespace PrecastConcretePlantFileImplement.Implements
     {
         private readonly FileDataListSingleton source;
         public ReinforcedStorage() => source = FileDataListSingleton.GetInstance();
-        public List<ImplemenerViewModel> GetFullList()
+        public List<ReinforcedViewModel> GetFullList()
         {
             return source.Reinforceds
             .Select(CreateModel)
             .ToList();
         }
-        public List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model)
+        public List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             return source.Reinforceds
@@ -26,7 +26,7 @@ namespace PrecastConcretePlantFileImplement.Implements
             .Select(CreateModel)
             .ToList();
         }
-        public ImplemenerViewModel GetElement(ReinforcedBindingModel model)
+        public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             var reinforced = source.Reinforceds.FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id == model.Id);
@@ -69,9 +69,9 @@ namespace PrecastConcretePlantFileImplement.Implements
             }
             return reinforced;
         }
-        private ImplemenerViewModel CreateModel(Reinforced reinforced)
+        private ReinforcedViewModel CreateModel(Reinforced reinforced)
         {
-            return new ImplemenerViewModel
+            return new ReinforcedViewModel
             {
                 Id = reinforced.Id,
                 ReinforcedName = reinforced.ReinforcedName,

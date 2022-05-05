@@ -12,12 +12,8 @@ using PrecastConcretePlantDataBaseImplement;
 namespace PrecastConcretePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(PrecastConcretePlantDatabase))]
-<<<<<<<< HEAD:PrecastConcretePlantDataBaseImplement/Migrations/20220505120201_InitialCreate.Designer.cs
-    [Migration("20220505120201_InitialCreate")]
-========
-    [Migration("20220422081921_InitialCreate")]
->>>>>>>> SixthSimple:PrecastConcretePlantDataBaseImplement/Migrations/20220422081921_InitialCreate.Designer.cs
-    partial class InitialCreate
+    [Migration("20220505162946_InitiakCreate")]
+    partial class InitiakCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
