@@ -41,10 +41,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void CreateOrUpdate(WarehouseBindingModel model)
         {
-            var element = _warehouseStorage.GetElement(new WarehouseBindingModel
-            {
-                WarehouseName = model.WarehouseName
-            });
+            var element = _warehouseStorage.GetElement(new WarehouseBindingModel { WarehouseName = model.WarehouseName });
             if (element != null && element.Id != model.Id) throw new Exception("Уже есть склад с таким названием");
             if (model.Id.HasValue) _warehouseStorage.Update(model);
             else _warehouseStorage.Insert(model);
