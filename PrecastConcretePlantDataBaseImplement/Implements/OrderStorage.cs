@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PrecastConcretePlantDataBaseImplement;
+using PrecastConcretePlantContracts.Enums;
 
 namespace PrecastConcretePlantDatabaseImplement.Implements
 {
@@ -17,6 +18,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             using var context = new PrecastConcretePlantDatabase();
             return context.Orders
                 .Include(rec => rec.Reinforced)
+                .Include(rec => rec.Client)
                 .Include(rec => rec.Implementer)
                 .Select(CreateModel)
                 .ToList();
@@ -29,11 +31,12 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 .Include(rec => rec.Reinforced)
                 .Include(rec => rec.Client)
                 .Include(rec => rec.Implementer)
-                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
-               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
-               (model.ClientId.HasValue && rec.ClientId == model.ClientId) || 
-               (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
-               (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
+                 .Where(rec => rec.ReinforcedId.Equals(model.ReinforcedId)
+                    || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date)
+                    || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
+                    || (model.SearchStatus.HasValue && !rec.ImplementerId.HasValue)
+                    || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
                 .Select(CreateModel)
                 .ToList();
 
@@ -55,7 +58,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             var order = new Order
             {
                 ReinforcedId = model.ReinforcedId,
-                ClientId = (int)model.ClientId,
+                ClientId = (int) model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,

@@ -38,44 +38,47 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-            if (order.Status == OrderStatus.Принят)
+            OrderViewModel order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            if (order.Status == OrderStatus.Принят || order.Status == OrderStatus.Требуются_материалы)
             {
+                var orderBinding = new OrderBindingModel
+                {
+                    Id = order.Id,
+                    ReinforcedId = order.ReinforcedId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    ClientId = order.ClientId
+                };
                 if (!_warehouseStorage.CheckComponents(_reinforcedStorage.GetElement(new ReinforcedBindingModel { Id = order.ReinforcedId }).ReinforcedComponents, order.Count))
-                    throw new Exception("На складах недостаточно компонентов");
+                    orderBinding.Status = OrderStatus.Требуются_материалы;
+                else
+                {
+                    orderBinding.DateImplement = DateTime.Now;
+                    orderBinding.Status = OrderStatus.Выполняется;
+                    orderBinding.ImplementerId = model.ImplementerId;
+                }
+                _orderStorage.Update(orderBinding);
+            }
+            else throw new Exception("Заказ еще не принят");
+        }
+        public void FinishOrder(ChangeStatusBindingModel model)
+        {
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            if (order.Status == OrderStatus.Выполняется)
                 _orderStorage.Update(new OrderBindingModel
                 {
                     Id = order.Id,
                     ReinforcedId = order.ReinforcedId,
                     ClientId = order.ClientId,
-                    Sum = order.Sum,
-                    Status = OrderStatus.Выполняется,
+                    ImplementerId = order.ImplementerId,
                     Count = order.Count,
+                    Sum = order.Sum,
                     DateCreate = order.DateCreate,
-                    DateImplement = DateTime.Now
+                    DateImplement = order.DateImplement,
+                    Status = OrderStatus.Готов
                 });
-            }
-            else throw new Exception("Заказ должен находиться в состоянии 'Принят'");
-        }
-        public void FinishOrder(ChangeStatusBindingModel model)
-        {
-            if (_orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId }).Status == OrderStatus.Выполняется)
-            {
-                var tempModel = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
-                _orderStorage.Update(new OrderBindingModel
-                {
-                    Id = tempModel.Id,
-                    ReinforcedId = tempModel.ReinforcedId,
-                    ClientId = tempModel.ClientId,
-                    ImplementerId = model.ImplementerId,
-                    Sum = tempModel.Sum,
-                    Status = OrderStatus.Готов,
-                    Count = tempModel.Count,
-                    DateCreate = tempModel.DateCreate,
-                    DateImplement = tempModel.DateImplement
-                });
-            }
-            else throw new Exception("Заказ должен находиться в состоянии 'Выполняется'");
+            else throw new Exception("Заказ не в статусе 'Выполняется'");
         }
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {

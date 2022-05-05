@@ -1,4 +1,5 @@
 ﻿using PrecastConcretePlantContracts.BindingModels;
+using PrecastConcretePlantContracts.Enums;
 using PrecastConcretePlantContracts.StoragesContracts;
 using PrecastConcretePlantContracts.ViewModels;
 using PrecastConcretePlantListImplement.Models;
@@ -26,7 +27,7 @@ namespace PrecastConcretePlantListImplement.Implements
                     (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
                     (model.ClientId.HasValue && order.ClientId == model.ClientId) ||
                     (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status) || 
-                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
+                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == OrderStatus.Выполняется))
                     result.Add(CreateModel(order));
             }
             return result;
