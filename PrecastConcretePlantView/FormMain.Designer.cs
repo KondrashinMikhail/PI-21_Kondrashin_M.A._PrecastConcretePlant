@@ -62,7 +62,7 @@
             this.запускРаботToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1265, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1535, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -189,12 +189,12 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.RowTemplate.Height = 29;
-            this.dataGridView.Size = new System.Drawing.Size(1058, 407);
+            this.dataGridView.Size = new System.Drawing.Size(1328, 407);
             this.dataGridView.TabIndex = 1;
             // 
             // buttonCreateOrder
             // 
-            this.buttonCreateOrder.Location = new System.Drawing.Point(1076, 52);
+            this.buttonCreateOrder.Location = new System.Drawing.Point(1346, 52);
             this.buttonCreateOrder.Name = "buttonCreateOrder";
             this.buttonCreateOrder.Size = new System.Drawing.Size(177, 29);
             this.buttonCreateOrder.TabIndex = 2;
@@ -204,7 +204,7 @@
             // 
             // buttonIssuedOrder
             // 
-            this.buttonIssuedOrder.Location = new System.Drawing.Point(1076, 87);
+            this.buttonIssuedOrder.Location = new System.Drawing.Point(1346, 87);
             this.buttonIssuedOrder.Name = "buttonIssuedOrder";
             this.buttonIssuedOrder.Size = new System.Drawing.Size(177, 29);
             this.buttonIssuedOrder.TabIndex = 5;
@@ -214,7 +214,7 @@
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Location = new System.Drawing.Point(1076, 122);
+            this.buttonRefresh.Location = new System.Drawing.Point(1346, 122);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(177, 29);
             this.buttonRefresh.TabIndex = 6;
@@ -226,7 +226,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1265, 450);
+            this.ClientSize = new System.Drawing.Size(1535, 450);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonIssuedOrder);
             this.Controls.Add(this.buttonCreateOrder);

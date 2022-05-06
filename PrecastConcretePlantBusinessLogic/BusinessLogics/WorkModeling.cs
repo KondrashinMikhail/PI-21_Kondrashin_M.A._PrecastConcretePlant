@@ -46,12 +46,10 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
             {
                 _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel { OrderId = order.Id });
                 var processedOrder = _orderLogic.Read(new OrderBindingModel { Id = order.Id })[0];
-                if (processedOrder.Status != OrderStatus.Требуются_материалы)
-                {
-                    Thread.Sleep(implementer.WorkingTime * random.Next(1, 5) * order.Count);
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
-                    Thread.Sleep(implementer.PauseTime);
-                }
+                if (processedOrder.Status == OrderStatus.Требуются_материалы) continue;
+                Thread.Sleep(implementer.WorkingTime * random.Next(1, 5) * order.Count);
+                _orderLogic.FinishOrder(new ChangeStatusBindingModel { OrderId = order.Id });
+                Thread.Sleep(implementer.PauseTime);
             }
             await Task.Run(() =>
             {
@@ -59,18 +57,22 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                 {
                     if (orders.TryTake(out OrderViewModel order))
                     {
-                        _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                        { 
-                            OrderId = order.Id, 
-                            ImplementerId = implementer.Id 
-                        });
-                        Thread.Sleep(implementer.WorkingTime * random.Next(1, 5) * order.Count);
-                        _orderLogic.FinishOrder(new ChangeStatusBindingModel 
+                        try
                         {
-                            OrderId = order.Id,
-                            ImplementerId = implementer.Id
-                        });
-                        Thread.Sleep(implementer.PauseTime);
+                            _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                            {
+                                OrderId = order.Id,
+                                ImplementerId = implementer.Id
+                            });
+                            Thread.Sleep(implementer.WorkingTime * random.Next(1, 5) * order.Count);
+                            _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                            {
+                                OrderId = order.Id,
+                                ImplementerId = implementer.Id
+                            });
+                            Thread.Sleep(implementer.PauseTime);
+                        }
+                        catch (Exception) { } 
                     }
                 }
             });

@@ -103,8 +103,6 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                     int count = warehouseComponent.Value.Item2 * orderCount;
                     var warehouseComponents = context.WarehouseComponents.Where(warehouse => warehouse.ComponentId == warehouseComponent.Key);
                     int totalCount = warehouseComponents.Sum(warehouse => warehouse.Count);
-                    if (count < totalCount)
-                        throw new Exception("Недостаточно компонентов");
                     foreach (var component in warehouseComponents)
                     {
                         if (component.Count <= count)
