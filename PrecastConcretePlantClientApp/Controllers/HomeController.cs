@@ -129,7 +129,7 @@ namespace PrecastConcretePlantClientApp.Controllers
         [HttpPost]
         public decimal Calc(decimal count, int reinforced)
         {
-            ReinforcedViewModel prod = APIClient.GetRequest<ReinforcedViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
+            var prod = APIClient.GetRequest<ReinforcedViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
             return count * prod.Price;
         }
     }

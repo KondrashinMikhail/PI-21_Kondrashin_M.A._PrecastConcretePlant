@@ -61,7 +61,7 @@ namespace PrecastConcretePlantView
             }
             if (comboBoxReinforced.SelectedValue == null)
             {
-                MessageBox.Show("Выберите пиццу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите ЖБИ", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
