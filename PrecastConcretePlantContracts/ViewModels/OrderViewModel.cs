@@ -7,7 +7,10 @@ namespace PrecastConcretePlantContracts.ViewModels
     public class OrderViewModel
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public int ReinforcedId { get; set; }
+        [DisplayName("ФИО клиента")]
+        public string ClientName { get; set; }
         [DisplayName("Железобетонные изделия")]
         public string ReinforcedName { get; set; }
         [DisplayName("Количество")]

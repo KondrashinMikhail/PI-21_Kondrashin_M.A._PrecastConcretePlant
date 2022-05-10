@@ -15,5 +15,6 @@ namespace PrecastConcretePlantDataBaseImplement
         public virtual DbSet<Reinforced> Reinforceds { get; set; }
         public virtual DbSet<ReinforcedComponent> ReinforcedComponents { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
     }
 }
