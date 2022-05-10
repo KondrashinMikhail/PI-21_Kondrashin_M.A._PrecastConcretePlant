@@ -12,10 +12,10 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
     {
         private readonly IReinforcedStorage _reinforcedStorage;
         public ReinforcedLogic(IReinforcedStorage reinforcedStorage) => _reinforcedStorage = reinforcedStorage;
-        public List<ReinforcedViewModel> Read(ReinforcedBindingModel model)
+        public List<ImplemenerViewModel> Read(ReinforcedBindingModel model)
         {
             if (model == null) return _reinforcedStorage.GetFullList();
-            if (model.Id.HasValue) return new List<ReinforcedViewModel> { _reinforcedStorage.GetElement(model) };
+            if (model.Id.HasValue) return new List<ImplemenerViewModel> { _reinforcedStorage.GetElement(model) };
             return _reinforcedStorage.GetFilteredList(model);
         }
         public void CreateOrUpdate(ReinforcedBindingModel model)

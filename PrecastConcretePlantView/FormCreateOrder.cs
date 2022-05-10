@@ -18,7 +18,7 @@ namespace PrecastConcretePlantView
             _logicR = logicR;
             _logicO = logicO;
             _logicC = logicC;
-            List<ReinforcedViewModel> listReinforceds = _logicR.Read(null);
+            List<ImplemenerViewModel> listReinforceds = _logicR.Read(null);
             List<ClientViewModel> listClients = _logicC.Read(null);
             if (listReinforceds != null && listClients != null)
             {
@@ -40,7 +40,7 @@ namespace PrecastConcretePlantView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxReinforced.SelectedValue);
-                    ReinforcedViewModel reinforced = _logicR.Read(new ReinforcedBindingModel { Id = id })?[0];
+                    ImplemenerViewModel reinforced = _logicR.Read(new ReinforcedBindingModel { Id = id })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * reinforced?.Price ?? 0).ToString();
                 }
@@ -61,7 +61,7 @@ namespace PrecastConcretePlantView
             }
             if (comboBoxReinforced.SelectedValue == null)
             {
-                MessageBox.Show("Выберите пиццу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите ЖБИ", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
