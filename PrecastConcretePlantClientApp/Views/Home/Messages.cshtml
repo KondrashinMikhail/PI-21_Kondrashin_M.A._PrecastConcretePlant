@@ -1,5 +1,5 @@
 ﻿@using PrecastConcretePlantContracts.ViewModels
-@model List<MessageInfoViewModel>
+@model (List<MessageInfoViewModel> list, bool hasNext, int page)
 @{
     ViewData["Title"] = "Messages"; 
 }
@@ -8,7 +8,7 @@
     </div>
     <div class="text-center">
         @{
-            if (Model == null)
+            if (Model.list == null)
             {
                 <h3 class="display-4">Авторизируйтесь</h3>
                 return;
@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.list)
                     {
                         <tr>
                             <td>
@@ -51,4 +51,12 @@
                 </tbody>
             </table> 
         }
+         <div style="display: flex; justify-content: space-between; max-width: 120px;">
+        @{ if ((Model.page - 1) >= 1)
+                        {
+            <a asp-action="Messages" asp-route-page="@(Model.page-1)">Предыдущая - @(Model.page-1)</a> }
+            <span style="font-weight: bold;">@(Model.page)</span> if (Model.hasNext)
+                        {
+            <a asp-action="Messages" asp-route-page="@(Model.page+1)">Следующая - @(Model.page+1)</a> } }
+    </div>
     </div>

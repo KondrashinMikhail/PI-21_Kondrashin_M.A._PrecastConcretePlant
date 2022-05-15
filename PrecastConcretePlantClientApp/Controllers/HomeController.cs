@@ -9,20 +9,14 @@ namespace PrecastConcretePlantClientApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        public HomeController(ILogger<HomeController> logger) => _logger = logger;
         public IActionResult Index()
         {
             if (Program.Client == null)
             {
                 return Redirect("~/Home/Enter");
             }
-            return
-            View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
+            return View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
         [HttpGet]
         public IActionResult Privacy()
@@ -130,14 +124,13 @@ namespace PrecastConcretePlantClientApp.Controllers
             var prod = APIClient.GetRequest<ReinforcedViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
             return count * prod.Price;
         }
-        public IActionResult Messages()
+        public IActionResult Messages(int page = 1)
         {
-            if (Program.Client == null)
-            {
-                return Redirect("~/Home/Enter");
-            }
-            return View(APIClient.GetRequest<List<MessageInfoViewModel>>
-                ($"api/main/GetMessages?clientId={Program.Client.Id}"));
+            if (Program.Client == null) return Redirect("~/Home/Enter");
+            var temp = APIClient.GetRequest<(List<MessageInfoViewModel> list, bool hasNext)>
+                ($"api/main/GetMessages?clientId={Program.Client.Id}&page={page}");
+            (List<MessageInfoViewModel>, bool, int) model = (temp.list, temp.hasNext, page);
+            return View(model);
         }
     }
 }

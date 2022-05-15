@@ -20,7 +20,7 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<ClientViewModel> Read(ClientBindingModel model)
         {
             if (model == null) return _clientStorage.GetFullList();
-            if (model.Id.HasValue) return new List<ClientViewModel> { _clientStorage.GetElement(model) };
+            if (model.Id.HasValue || !string.IsNullOrEmpty(model.Login)) return new List<ClientViewModel> { _clientStorage.GetElement(model) };
             return _clientStorage.GetFilteredList(model);
         }
         public void CreateOrUpdate(ClientBindingModel model)

@@ -12,6 +12,7 @@ namespace PrecastConcretePlantRestApi.Controllers
         private readonly IOrderLogic _order;
         private readonly IReinforcedLogic _reinforced;
         private readonly IMessageInfoLogic _message;
+        private readonly int mailsNum = 5;
         public MainController(IOrderLogic order, IReinforcedLogic reinforced, IMessageInfoLogic message)
         {
             _order = order;
@@ -25,7 +26,17 @@ namespace PrecastConcretePlantRestApi.Controllers
         [HttpGet]
         public List<OrderViewModel> GetOrders(int clientId) => _order.Read(new OrderBindingModel { ClientId = clientId });
         [HttpGet]
-        public List<MessageInfoViewModel> GetMessages(int clientId) => _message.Read(new MessageInfoBindingModel { ClientId = clientId });
+        public (List<MessageInfoViewModel>, bool) GetMessages(int clientId, int page)
+        {
+            var list = _message.Read(new MessageInfoBindingModel
+            {
+                ClientId = clientId,
+                ToSkip = (page - 1) * mailsNum,
+                ToTake = mailsNum + 1
+            }).ToList();
+            var hasNext = !(list.Count() <= mailsNum);
+            return (list.Take(mailsNum).ToList(), hasNext);
+        }
         [HttpPost]
         public void CreateOrder(CreateOrderBindingModel model) => _order.CreateOrder(model);
     }

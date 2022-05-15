@@ -90,7 +90,9 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     SenderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateDelivery = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Viewed = table.Column<bool>(type: "bit", nullable: false),
+                    Reply = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

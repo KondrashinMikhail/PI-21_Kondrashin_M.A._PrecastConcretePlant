@@ -29,6 +29,24 @@ namespace PrecastConcretePlantFileImplement.Implements
             .Select(CreateModel)
             .ToList();
         }
+        public MessageInfoViewModel GetElement(MessageInfoBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            var message = source.MessagesInfo.FirstOrDefault(rec => rec.MessageId == model.MessageId);
+            return message != null ? CreateModel(message) : null;
+        }
+        public void Update(MessageInfoBindingModel model)
+        {
+            var element = source.MessagesInfo.FirstOrDefault(rec => rec.MessageId == model.MessageId);
+            if (element == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+            CreateModel(model, element);
+        }
         public void Insert(MessageInfoBindingModel model) => source.MessagesInfo.Add(CreateModel(model, new MessageInfo()));
         private MessageInfo CreateModel(MessageInfoBindingModel model, MessageInfo message)
         {
@@ -37,6 +55,8 @@ namespace PrecastConcretePlantFileImplement.Implements
             message.DateDelivery = model.DateDelivery;
             message.Subject = model.Subject;
             message.Body = model.Body;
+            message.Viewed = model.Viewed;
+            message.Reply = model.Reply;
             return message;
         }
         private MessageInfoViewModel CreateModel(MessageInfo message)
@@ -48,6 +68,8 @@ namespace PrecastConcretePlantFileImplement.Implements
                 DateDelivery = message.DateDelivery,
                 Subject = message.Subject,
                 Body = message.Body,
+                Viewed = message.Viewed,
+                Reply = message.Reply
             };
         }
     }

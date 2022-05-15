@@ -17,8 +17,17 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         public List<MessageInfoViewModel> Read(MessageInfoBindingModel model)
         {
             if (model == null) return _messageInfoStorage.GetFullList();
+            if (!string.IsNullOrEmpty(model.MessageId)) return new List<MessageInfoViewModel> { _messageInfoStorage.GetElement(model) };
             return _messageInfoStorage.GetFilteredList(model);
         }
-        public void CreateOrUpdate(MessageInfoBindingModel model) => _messageInfoStorage.Insert(model);
+        public void CreateOrUpdate(MessageInfoBindingModel model) 
+        {
+            var element = _messageInfoStorage.GetElement(new MessageInfoBindingModel
+            {
+                MessageId = model.MessageId
+            });
+            if (element != null) _messageInfoStorage.Update(model);
+            else _messageInfoStorage.Insert(model);
+        }
     }
 }
