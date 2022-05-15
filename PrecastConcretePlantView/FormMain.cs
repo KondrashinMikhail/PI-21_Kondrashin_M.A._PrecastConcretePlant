@@ -147,26 +147,23 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormReportGeneralOrders>();
             form.ShowDialog();
         }
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
-
         private void çàïóñêĞàáîòToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-             _workProcess.DoWork(_implementerLogic, _orderLogic);
+            _workProcess.DoWork(_implementerLogic, _orderLogic);
             MessageBox.Show("Çàïóùåíî", "Èíôîğìàöèÿ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadData();
         }
-
         private void èñïîëíèòåëèToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormImplementers>();
             form.ShowDialog();
             LoadData();
         }
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
-
         private void ïèñüìàToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormMails>();
             form.ShowDialog();
         }
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
     }
 }

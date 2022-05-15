@@ -20,9 +20,9 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
         {
             _orderStorage = orderStorage;
             _clientStorage = clientStorage;
-            _mailWorker = mailWorker;
             _reinforcedStorage = reinforcedStorage;
             _warehouseStorage = warehouseStorage;
+            _mailWorker = mailWorker;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -66,34 +66,25 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     orderBinding.Status = OrderStatus.Требуются_материалы;
                 else
                 {
-                    Id = tempModel.Id,
-                    ReinforcedId = tempModel.ReinforcedId,
-                    ClientId = tempModel.ClientId,
-                    ImplementerId = model.ImplementerId,
-                    Sum = tempModel.Sum,
-                    Status = OrderStatus.Выполняется,
-                    Count = tempModel.Count,
-                    DateCreate = tempModel.DateCreate,
-                    DateImplement = DateTime.Now
-                });
-                _mailWorker.MailSendAsync(new MailSendInfoBindingModel
-                {
-                    MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.Id })?.Login,
-                    Subject = $"Заказ №{order.Id}",
-                    Text = $"Заказ №{order.Id} принят в работу"
-                });
                     orderBinding.DateImplement = DateTime.Now;
                     orderBinding.Status = OrderStatus.Выполняется;
                     orderBinding.ImplementerId = model.ImplementerId;
+                    _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+                    {
+                        MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.Id })?.Login,
+                        Subject = $"Заказ №{order.Id}",
+                        Text = $"Заказ №{order.Id} принят в работу"
+                    });
+                   
                 }
                 _orderStorage.Update(orderBinding);
             }
-            else throw new Exception("Заказ еще не принят");
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order.Status == OrderStatus.Выполняется)
+            {
                 _orderStorage.Update(new OrderBindingModel
                 {
                     Id = order.Id,
@@ -106,7 +97,6 @@ namespace PrecastConcretePlantBusinessLogic.BusinessLogics
                     DateImplement = order.DateImplement,
                     Status = OrderStatus.Готов
                 });
-            else throw new Exception("Заказ не в статусе 'Выполняется'");
                 _mailWorker.MailSendAsync(new MailSendInfoBindingModel
                 {
                     MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Login,
