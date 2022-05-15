@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.buttonSaveToExcel = new System.Windows.Forms.Button();
             this.Component = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reinforced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonSaveToExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,16 +49,6 @@
             this.dataGridView.RowTemplate.Height = 29;
             this.dataGridView.Size = new System.Drawing.Size(611, 391);
             this.dataGridView.TabIndex = 0;
-            // 
-            // buttonSaveToExcel
-            // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(12, 12);
-            this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(158, 29);
-            this.buttonSaveToExcel.TabIndex = 1;
-            this.buttonSaveToExcel.Text = "Сохранить в Excel";
-            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
-            this.buttonSaveToExcel.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
             // 
             // Component
             // 
@@ -81,6 +71,16 @@
             this.Count.MinimumWidth = 6;
             this.Count.Name = "Count";
             // 
+            // buttonSaveToExcel
+            // 
+            this.buttonSaveToExcel.Location = new System.Drawing.Point(12, 12);
+            this.buttonSaveToExcel.Name = "buttonSaveToExcel";
+            this.buttonSaveToExcel.Size = new System.Drawing.Size(158, 29);
+            this.buttonSaveToExcel.TabIndex = 1;
+            this.buttonSaveToExcel.Text = "Сохранить в Excel";
+            this.buttonSaveToExcel.UseVisualStyleBackColor = true;
+            this.buttonSaveToExcel.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
+            // 
             // FormReportReinforcedComponents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -89,7 +89,7 @@
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormReportReinforcedComponents";
-            this.Text = "FormReportReinforcedComponents";
+            this.Text = "Отчет компоненты по ЖБИ";
             this.Load += new System.EventHandler(this.FormReportReinforcedComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

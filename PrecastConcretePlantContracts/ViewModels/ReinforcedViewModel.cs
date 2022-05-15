@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace PrecastConcretePlantContracts.ViewModels
 {
-    public class ImplemenerViewModel
+    public class ReinforcedViewModel
     {
         public int Id { get; set; }
         [DisplayName("Название железобетонного изделия")]

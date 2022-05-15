@@ -21,7 +21,6 @@ namespace PrecastConcretePlantView
             InitializeComponent();
             _logic = logic;
         }
-
         private void FormReportReinforcedComponents_Load(object sender, EventArgs e)
         {
             try
@@ -44,11 +43,9 @@ namespace PrecastConcretePlantView
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
-
         private void buttonSaveToExcel_Click(object sender, EventArgs e)
         {
             using var dialog = new SaveFileDialog { Filter = "xlsx|*.xlsx" };
@@ -60,13 +57,11 @@ namespace PrecastConcretePlantView
                     {
                         FileName = dialog.FileName
                     });
-                    MessageBox.Show("Выполнено", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -206,15 +206,6 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.ToTable("ReinforcedComponents");
                 });
 
-            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.MessageInfo", b =>
-                {
-                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Client", "Client")
-                        .WithMany("MessagesInfo")
-                        .HasForeignKey("ClientId");
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Client", "Client")
@@ -259,6 +250,25 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Reinforced");
                 });
 
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Component", "Component")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrecastConcretePlantDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Client", b =>
                 {
                     b.Navigation("MessagesInfo");
@@ -269,6 +279,8 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Component", b =>
                 {
                     b.Navigation("ReinforcedComponents");
+
+                    b.Navigation("WarehouseComponents");
                 });
 
             modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Implementer", b =>
@@ -281,6 +293,11 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("ReinforcedComponents");
+                });
+
+            modelBuilder.Entity("PrecastConcretePlantDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Navigation("WarehouseComponents");
                 });
 #pragma warning restore 612, 618
         }

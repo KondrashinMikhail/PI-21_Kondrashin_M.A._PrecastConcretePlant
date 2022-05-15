@@ -1,4 +1,5 @@
 ﻿using PrecastConcretePlantContracts.BindingModels;
+using PrecastConcretePlantContracts.Enums;
 using PrecastConcretePlantContracts.StoragesContracts;
 using PrecastConcretePlantContracts.ViewModels;
 using PrecastConcretePlantFileImplement.Models;
@@ -15,8 +16,7 @@ namespace PrecastConcretePlantFileImplement.Implements
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null) return null;
-            var order = source.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id || rec.ReinforcedId == model.ReinforcedId);
+            var order = source.Orders.FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
@@ -27,7 +27,7 @@ namespace PrecastConcretePlantFileImplement.Implements
                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
                (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
                (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
-               (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
+               (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == OrderStatus.Выполняется))
                 .Select(CreateModel)
                 .ToList();
         }

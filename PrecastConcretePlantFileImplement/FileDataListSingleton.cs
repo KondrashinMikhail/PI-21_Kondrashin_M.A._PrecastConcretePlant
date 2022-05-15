@@ -11,11 +11,12 @@ namespace PrecastConcretePlantFileImplement
     public class FileDataListSingleton
     {
         private static FileDataListSingleton instance;
-        private readonly string ComponentFileName = "C:/Users/user/source/repos/XMLDoc/Component.xml";
-        private readonly string OrderFileName = "C:/Users/user/source/repos/XMLDoc/Order.xml";
-        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XMLDoc/Reinforced.xml";
-        private readonly string ClientFileName = "C:/Users/user/source/repos/XMLDoc/Client.xml";
-        private readonly string ImplementerFileName = "C:/Users/user/source/repos/XMLDoc/Implemeter.xml";
+        private readonly string ComponentFileName = "C:/Users/user/source/repos/XML/Component.xml";
+        private readonly string OrderFileName = "C:/Users/user/source/repos/XML/Order.xml";
+        private readonly string ReinforcedFileName = "C:/Users/user/source/repos/XML/Reinforced.xml";
+        private readonly string ClientFileName = "C:/Users/user/source/repos/XML/Client.xml";
+        private readonly string ImplementerFileName = "C:/Users/user/source/repos/XML/Implemeter.xml";
+        private readonly string WarehouseFileName = "C:/Users/user/source/repos/XML/Warehouse.xml";
         private readonly string MessageInfoFileName = "C:/Users/user/source/repos/XMLDoc/MessageInfo.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
@@ -23,11 +24,13 @@ namespace PrecastConcretePlantFileImplement
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
         public List<MessageInfo> MessagesInfo { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Reinforceds = LoadReinforceds();
             Orders = LoadOrders();
+            Warehouses = LoadWarehouses();
             Clients = LoadClients();
             Implementers = LoadImplementers();
             MessagesInfo = LoadMessagesInfo();
@@ -43,6 +46,7 @@ namespace PrecastConcretePlantFileImplement
             SaveOrders();
             SaveReinforceds();
             SaveClients();
+            SaveWarehouse();
             SaveImplementers();
             SaveMessagesInfo();
         }
@@ -114,7 +118,33 @@ namespace PrecastConcretePlantFileImplement
             }
             return list;
         }
-        private List<Client> LoadClients()
+        private List<Warehouse> LoadWarehouses() 
+        {
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                var xDocument = XDocument.Load (WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var elem in xElements) 
+                {
+                    var warehouseComponent = new Dictionary<int, int>();
+                    foreach (var component in elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList()) 
+                    {
+                        warehouseComponent.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
+                    }
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        WarehouseName = elem.Element("WarehouseName").Value,
+                        WarehouseManagerFullName = elem.Element("WarehouseManagerFullName").Value,
+                        DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
+                        WarehouseComponents = warehouseComponent
+                    });
+                }
+            }
+            return list;
+        }
+        private List<Client> LoadClients() 
         {
             var list = new List<Client>();
             if (File.Exists(ClientFileName))
@@ -218,19 +248,19 @@ namespace PrecastConcretePlantFileImplement
             if (Reinforceds != null)
             {
                 var xElement = new XElement("Reinforceds");
-                foreach (var product in Reinforceds)
+                foreach (var reinforced in Reinforceds)
                 {
                     var compElement = new XElement("ReinforcedComponents");
-                    foreach (var component in product.ReinforcedComponents)
+                    foreach (var component in reinforced.ReinforcedComponents)
                     {
                         compElement.Add(new XElement("ReinforcedComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
                     xElement.Add(new XElement("Reinforced",
-                     new XAttribute("Id", product.Id),
-                     new XElement("ReinforcedName", product.ReinforcedName),
-                     new XElement("Price", product.Price), compElement));
+                     new XAttribute("Id", reinforced.Id),
+                     new XElement("ReinforcedName", reinforced.ReinforcedName),
+                     new XElement("Price", reinforced.Price), compElement));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(ReinforcedFileName);
@@ -285,6 +315,30 @@ namespace PrecastConcretePlantFileImplement
                         new XElement("Subject", messageInfo.Subject),
                         new XElement("Body", messageInfo.Body)));
                 }
+            }
+        }
+        private void SaveWarehouse() 
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                     new XAttribute("Id", warehouse.Id),
+                     new XElement("WarehouseName", warehouse.WarehouseName),
+                     new XElement("WarehouseManagerFullName", warehouse.WarehouseManagerFullName),
+                     new XElement("DateCreate", warehouse.DateCreate), compElement));
+                }
+                var xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

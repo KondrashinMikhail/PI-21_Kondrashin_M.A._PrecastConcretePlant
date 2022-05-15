@@ -10,8 +10,8 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
     {
         private WordprocessingDocument _wordDocument;
         private Body _docBody;
-        private static JustificationValues GetJustificationValues(WordJustificationType
-       type)
+        private Table _table; 
+        private static JustificationValues GetJustificationValues(WordJustificationType type)
         {
             return type switch
             {
@@ -30,8 +30,7 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
             properties.AppendChild(pageSize);
             return properties;
         }
-        private static ParagraphProperties CreateParagraphProperties(WordTextProperties
-       paragraphProperties)
+        private static ParagraphProperties CreateParagraphProperties(WordTextProperties paragraphProperties)
         {
             if (paragraphProperties != null)
             {
@@ -44,14 +43,13 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
                 {
                     LineRule = LineSpacingRuleValues.Auto
                 });
-            properties.AppendChild(new Indentation());
+                properties.AppendChild(new Indentation());
                 var paragraphMarkRunProperties = new ParagraphMarkRunProperties();
                 if (!string.IsNullOrEmpty(paragraphProperties.Size))
                 {
                     paragraphMarkRunProperties.AppendChild(new FontSize
                     {
-                        Val =
-                   paragraphProperties.Size
+                        Val = paragraphProperties.Size
                     });
                 }
                 properties.AppendChild(paragraphMarkRunProperties);
@@ -61,8 +59,7 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
         }
         protected override void CreateWord(WordInfo info)
         {
-            _wordDocument = WordprocessingDocument.Create(info.FileName,
-           WordprocessingDocumentType.Document);
+            _wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document);
             MainDocumentPart mainPart = _wordDocument.AddMainDocumentPart();
             mainPart.Document = new Document();
             _docBody = mainPart.Document.AppendChild(new Body());
@@ -87,13 +84,70 @@ namespace PrecastConcretePlantBusinessLogic.OfficePackage.Implements
                     docRun.AppendChild(new Text
                     {
                         Text = run.Item1,
-                        Space =
-                   SpaceProcessingModeValues.Preserve
+                        Space = SpaceProcessingModeValues.Preserve
                     });
                     docParagraph.AppendChild(docRun);
                 }
                 _docBody.AppendChild(docParagraph);
             }
+        }
+        protected override void CreateTable(List<string> tableHeaderInfo)
+        {
+            _table = new Table();
+            TableProperties tblProps = new TableProperties(
+                new TableBorders(
+                new TopBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                },
+                new BottomBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                },
+                new LeftBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                },
+                new RightBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                },
+                new InsideHorizontalBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                },
+                new InsideVerticalBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 10
+                }));
+            _table.AppendChild<TableProperties>(tblProps);
+            _docBody.AppendChild(_table);
+            TableRow tableRowHeader = new TableRow();
+            foreach (string stringHeaderCell in tableHeaderInfo)
+            {
+                TableCell cellHeader = new TableCell();
+                cellHeader.Append(new TableCellProperties(new TableCellWidth() { Type = TableWidthUnitValues.Auto }));
+                cellHeader.Append(new Paragraph(new Run(new Text(stringHeaderCell))));
+                tableRowHeader.Append(cellHeader);
+            }
+            _table.Append(tableRowHeader);
+        }
+        protected override void AddRow(List<string> tableRowInfo)
+        {
+            TableRow tableRow = new TableRow();
+            foreach (string cell in tableRowInfo)
+            {
+                TableCell tableCell = new TableCell();
+                tableCell.Append(new Paragraph(new Run(new Text(cell))));
+                tableRow.Append(tableCell);
+            }
+            _table.Append(tableRow);
         }
         protected override void SaveWord(WordInfo info)
         {

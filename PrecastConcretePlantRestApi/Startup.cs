@@ -16,16 +16,19 @@ namespace PrecastConcretePlantRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IClientStorage, ClientStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IReinforcedStorage, ReinforcedStorage>();
             services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IReinforcedLogic, ReinforcedLogic>();
+            services.AddTransient<IWarehouseLogic, WarehouseLogic>();
+            services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
             services.AddSingleton<AbstractMailWorker, MailKitWorker>();
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddControllers().AddNewtonsoftJson();            services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrecastConcretePlantRestApi", Version = "v1" });
             });

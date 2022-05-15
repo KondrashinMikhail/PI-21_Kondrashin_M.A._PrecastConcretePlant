@@ -19,9 +19,9 @@ namespace PrecastConcretePlantRestApi.Controllers
             _message = message;
         }
         [HttpGet]
-        public List<ImplemenerViewModel> GetReinforcedList() => _reinforced.Read(null)?.ToList();
+        public List<ReinforcedViewModel> GetReinforcedList() => _reinforced.Read(null)?.ToList();
         [HttpGet]
-        public ImplemenerViewModel GetReinforced(int reinforcedId) => _reinforced.Read(new ReinforcedBindingModel { Id = reinforcedId })?[0];
+        public ReinforcedViewModel GetReinforced(int reinforcedId) => _reinforced.Read(new ReinforcedBindingModel { Id = reinforcedId })?[0];
         [HttpGet]
         public List<OrderViewModel> GetOrders(int clientId) => _order.Read(new OrderBindingModel { ClientId = clientId });
         [HttpGet]

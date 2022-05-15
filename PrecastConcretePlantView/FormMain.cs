@@ -65,11 +65,15 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormClients>();
             form.ShowDialog();
         }
-        private void исполнителиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItemWarehouses_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormImplementers>();
+            var form = Program.Container.Resolve<FormWarehouses>();
             form.ShowDialog();
-            LoadData();
+        }
+        private void toolStripMenuItemAddComponentsToWarehouse_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouseComponent>();
+            form.ShowDialog();
         }
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
@@ -116,15 +120,46 @@ namespace PrecastConcretePlantView
             var form = Program.Container.Resolve<FormReportReinforcedComponents>();
             form.ShowDialog();
         }
-        private void списокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокКонкретныхЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReportOrders>();
             form.ShowDialog();
         }
-        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _workProcess.DoWork(_implementerLogic, _orderLogic);
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                {
+                    FileName = dialog.FileName
+                });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void компонентыНаСкладахToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportWarehouseComponents>();
+            form.ShowDialog();
+        }
+        private void общийСписокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportGeneralOrders>();
+            form.ShowDialog();
+        }
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
+
+        private void запускРаботToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+             _workProcess.DoWork(_implementerLogic, _orderLogic);
             MessageBox.Show("Запущено", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void исполнителиToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+            LoadData();
         }
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e) => FileDataListSingleton.GetInstance().Save();
 

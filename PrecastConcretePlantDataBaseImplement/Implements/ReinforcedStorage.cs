@@ -12,36 +12,36 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
 {
     public class ReinforcedStorage : IReinforcedStorage
     {
-        public List<ImplemenerViewModel> GetFullList()
+        public List<ReinforcedViewModel> GetFullList()
         {
             using var context = new PrecastConcretePlantDatabase();
             return context.Reinforceds
-            .Include(rec => rec.ReinforcedComponents)
-            .ThenInclude(rec => rec.Component)
-            .ToList()
-            .Select(CreateModel)
-            .ToList();
+                .Include(rec => rec.ReinforcedComponents)
+                .ThenInclude(rec => rec.Component)
+                .ToList()
+                .Select(CreateModel)
+                .ToList();
         }
-        public List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model)
+        public List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
             return context.Reinforceds
-            .Include(rec => rec.ReinforcedComponents)
-            .ThenInclude(rec => rec.Component)
-            .Where(rec => rec.ReinforcedName.Contains(model.ReinforcedName))
-            .ToList()
-            .Select(CreateModel)
-            .ToList();
+                .Include(rec => rec.ReinforcedComponents)
+                .ThenInclude(rec => rec.Component)
+                .Where(rec => rec.ReinforcedName.Contains(model.ReinforcedName))
+                .ToList()
+                .Select(CreateModel)
+                .ToList();
         }
-        public ImplemenerViewModel GetElement(ReinforcedBindingModel model)
+        public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
             var reinforced = context.Reinforceds
-            .Include(rec => rec.ReinforcedComponents)
-            .ThenInclude(rec => rec.Component)
-            .FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id == model.Id);
+                .Include(rec => rec.ReinforcedComponents)
+                .ThenInclude(rec => rec.Component)
+                .FirstOrDefault(rec => rec.ReinforcedName == model.ReinforcedName || rec.Id == model.Id);
             return reinforced != null ? CreateModel(reinforced) : null;
         }
         public void Insert(ReinforcedBindingModel model)
@@ -124,9 +124,9 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             return reinforced;
         }
-        private static ImplemenerViewModel CreateModel(Reinforced reinforced)
+        private static ReinforcedViewModel CreateModel(Reinforced reinforced)
         {
-            return new ImplemenerViewModel
+            return new ReinforcedViewModel
             {
                 Id = reinforced.Id,
                 ReinforcedName = reinforced.ReinforcedName,

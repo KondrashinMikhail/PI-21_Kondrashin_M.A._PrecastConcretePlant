@@ -105,7 +105,7 @@ namespace PrecastConcretePlantClientApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Reinforceds = APIClient.GetRequest<List<ImplemenerViewModel>>("api/main/getreinforcedlist");
+            ViewBag.Reinforceds = APIClient.GetRequest<List<ReinforcedViewModel>>("api/main/getreinforcedlist");
             return View();
         }
         [HttpPost]
@@ -127,7 +127,7 @@ namespace PrecastConcretePlantClientApp.Controllers
         [HttpPost]
         public decimal Calc(decimal count, int reinforced)
         {
-            ImplemenerViewModel prod = APIClient.GetRequest<ImplemenerViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
+            var prod = APIClient.GetRequest<ReinforcedViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
             return count * prod.Price;
         }
         public IActionResult Messages()
