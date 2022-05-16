@@ -92,7 +92,7 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                     Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Viewed = table.Column<bool>(type: "bit", nullable: false),
-                    Reply = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Reply = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

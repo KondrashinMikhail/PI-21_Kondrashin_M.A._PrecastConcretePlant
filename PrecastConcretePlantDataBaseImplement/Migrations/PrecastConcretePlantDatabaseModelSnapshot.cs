@@ -103,7 +103,6 @@ namespace PrecastConcretePlantDatabaseImplement.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Reply")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenderName")

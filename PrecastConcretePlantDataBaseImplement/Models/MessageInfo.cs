@@ -17,7 +17,7 @@ namespace PrecastConcretePlantDatabaseImplement.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public bool Viewed { get; set; }
-        public string Reply { get; set; }
+        public string? Reply { get; set; }
         public virtual Client Client { get; set; }
     }
 }

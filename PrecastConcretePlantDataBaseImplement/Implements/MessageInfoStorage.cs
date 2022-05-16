@@ -16,16 +16,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
         public List<MessageInfoViewModel> GetFullList()
         {
             using var context = new PrecastConcretePlantDatabase();
-            return context.MessagesInfo.Select(rec => new MessageInfoViewModel
-            {
-                MessageId = rec.MessageId,
-                SenderName = rec.SenderName,
-                DateDelivery = rec.DateDelivery,
-                Subject = rec.Subject,
-                Body = rec.Body,
-                Viewed = rec.Viewed,
-                Reply = rec.Reply
-            }).ToList();
+            return context.MessagesInfo.Select(CreateModel).ToList();
         }
         public List<MessageInfoViewModel> GetFilteredList(MessageInfoBindingModel model)
         {
@@ -40,7 +31,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 .Select(CreateModel)
                 .ToList();
         }
-        public MessageInfoViewModel GetElement(MessageInfoBindingModel model) 
+        public MessageInfoViewModel GetElement(MessageInfoBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
@@ -102,8 +93,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             message.Subject = model.Subject;
             message.Body = model.Body;
             message.DateDelivery = model.DateDelivery;
-            message.Reply = model.Reply;
             message.Viewed = model.Viewed;
+            message.Reply = model.Reply;
             return message;
         }
     }
