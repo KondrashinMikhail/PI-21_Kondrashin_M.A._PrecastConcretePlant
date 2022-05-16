@@ -23,9 +23,9 @@ namespace PrecastConcretePlantContracts.ViewModels
         public decimal Sum { get; set; }
         [Column(title: "Статус", width: 100)]
         public OrderStatus Status { get; set; }
-        [Column(title: "Дата создани", width: 100)]
+        [Column(title: "Дата создания", width: 100, dateFormat: "d")]
         public DateTime DateCreate { get; set; }
-        [Column(title: "Дата исполнения", width: 100)]
+        [Column(title: "Дата исполнения", width: 100, dateFormat: "d")]
         public DateTime? DateImplement { get; set; }
     }
 }

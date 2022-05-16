@@ -12,17 +12,17 @@ namespace PrecastConcretePlantContracts.ViewModels
     {
         [Column(title: "Номер", width: 100)]
         public string MessageId { get; set; }
-        [Column(title: "Отправитель", width: 100)]
+        [Column(title: "Отправитель", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string SenderName { get; set; }
-        [Column(title: "Дата письма", width: 100)]
+        [Column(title: "Дата письма", gridViewAutoSize: GridViewAutoSize.Fill, dateFormat: "d")]
         public DateTime DateDelivery { get; set; }
         [Column(title: "Заголовок", width: 100)]
         public string Subject { get; set; }
         [Column(title: "Текст", width: 100)]
         public string Body { get; set; }
-        [DisplayName("Просмотрено")]
+        [Column(title: "Просмотрено", width: 200)]
         public bool Viewed { get; set; }
-        [DisplayName("Ответ")]
+        [Column(title: "Ответ", width: 200)]
         public string Reply { get; set; }
     }
 }

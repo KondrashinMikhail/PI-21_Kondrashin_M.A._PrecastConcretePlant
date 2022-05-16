@@ -96,8 +96,9 @@ namespace PrecastConcretePlantView
                                 ReadOnly = true,
                                 HeaderText = columnAttr.Title,
                                 Visible = columnAttr.Visible,
-                                Width = columnAttr.Width
+                                Width = columnAttr.Width,
                             };
+                            column.DefaultCellStyle.Format = columnAttr.DateFormat;
                             if (columnAttr.GridViewAutoSize != GridViewAutoSize.None)
                                 column.AutoSizeMode = (DataGridViewAutoSizeColumnMode)Enum.Parse(typeof(DataGridViewAutoSizeColumnMode), columnAttr.GridViewAutoSize.ToString());
                             grid.Columns.Add(column);
