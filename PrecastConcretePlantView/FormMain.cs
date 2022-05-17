@@ -3,6 +3,7 @@ using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using PrecastConcretePlantFileImplement;
 using System;
+using System.Reflection;
 using System.Windows.Forms;
 using Unity;
 
@@ -94,10 +95,8 @@ namespace PrecastConcretePlantView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveComponentsToWordFile(new ReportBindingModel
-                {
-                    FileName = dialog.FileName
-                });
+                MethodInfo method = _reportLogic.GetType().GetMethod("SaveComponentsToWordFile");
+                method.Invoke(_reportLogic, new object[] { new ReportBindingModel { FileName = dialog.FileName } });
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -116,10 +115,8 @@ namespace PrecastConcretePlantView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
-                {
-                    FileName = dialog.FileName
-                });
+                MethodInfo method = _reportLogic.GetType().GetMethod("SaveWarehousesToWordFile");
+                method.Invoke(_reportLogic, new object[] { new ReportBindingModel { FileName = dialog.FileName } });
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
