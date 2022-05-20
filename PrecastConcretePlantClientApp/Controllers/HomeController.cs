@@ -124,9 +124,12 @@ namespace PrecastConcretePlantClientApp.Controllers
             var prod = APIClient.GetRequest<ReinforcedViewModel>($"api/main/getreinforced?reinforcedId={reinforced}");
             return count * prod.Price;
         }
-        public IActionResult Messages(int page = 1)
+        public IActionResult Messages(int page = 5)
         {
-            if (Program.Client == null) return Redirect("~/Home/Enter");
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
             var temp = APIClient.GetRequest<(List<MessageInfoViewModel> list, bool hasNext)>
                 ($"api/main/GetMessages?clientId={Program.Client.Id}&page={page}");
             (List<MessageInfoViewModel>, bool, int) model = (temp.list, temp.hasNext, page);
