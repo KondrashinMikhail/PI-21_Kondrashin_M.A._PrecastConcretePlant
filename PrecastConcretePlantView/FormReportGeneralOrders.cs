@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,7 +33,8 @@ namespace PrecastConcretePlantView
         {
             try
             {
-                var dataSource = _logic.GetGeneralOrders(new ReportBindingModel { });
+                MethodInfo method = _logic.GetType().GetMethod("GetGeneralOrders");
+                var dataSource = method.Invoke(_logic, new object[] { new ReportBindingModel { } });
                 var source = new ReportDataSource("DataSetGeneralOrders", dataSource);
                 reportViewer.LocalReport.DataSources.Clear();
                 reportViewer.LocalReport.DataSources.Add(source);
@@ -51,10 +53,8 @@ namespace PrecastConcretePlantView
             {
                 try
                 {
-                    _logic.SaveGeneralOrdersToPdfFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName,
-                    });
+                    MethodInfo method = _logic.GetType().GetMethod("SaveGeneralOrdersToPdfFile");
+                    method.Invoke(_logic, new object[] { new ReportBindingModel { FileName = dialog.FileName } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)

@@ -1,11 +1,13 @@
 ﻿using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
+using PrecastConcretePlantContracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,7 +26,8 @@ namespace PrecastConcretePlantView
         {
             try
             {
-                var dict = _logic.GetWarehouseComponent();
+                MethodInfo method = _logic.GetType().GetMethod("GetWarehouseComponent");
+                var dict = (List<ReportWarehouseComponentViewModel>)method.Invoke(_logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -50,10 +53,8 @@ namespace PrecastConcretePlantView
             {
                 try
                 {
-                    _logic.SaveWarehouseComponentToExcelFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
+                    MethodInfo method = _logic.GetType().GetMethod("SaveWarehouseComponentToExcelFile");
+                    method.Invoke(_logic, new object[] { new ReportBindingModel { FileName = dialog.FileName } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
