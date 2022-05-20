@@ -1,5 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using PrecastConcretePlantBusinessLogic.BusinessLogics;
+using PrecastConcretePlantBusinessLogic.MailWorker;
+using PrecastConcretePlantContracts.BindingModels;
 using PrecastConcretePlantContracts.BusinessLogicsContracts;
 using PrecastConcretePlantContracts.StoragesContracts;
 using PrecastConcretePlantDatabaseImplement.Implements;
@@ -8,11 +10,7 @@ namespace PrecastConcretePlantRestApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
+        public Startup(IConfiguration configuration) => Configuration = configuration;
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -22,12 +20,15 @@ namespace PrecastConcretePlantRestApi
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IReinforcedStorage, ReinforcedStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IReinforcedLogic, ReinforcedLogic>();
             services.AddTransient<IWarehouseLogic, WarehouseLogic>();
             services.AddTransient<IComponentLogic, ComponentLogic>();
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+            services.AddControllers().AddNewtonsoftJson();            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PrecastConcretePlantRestApi", Version = "v1" });
@@ -50,6 +51,17 @@ namespace PrecastConcretePlantRestApi
             {
                 endpoints.MapControllers();
             });
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = Configuration?.GetSection("MailLogin")?.Value.ToString(),
+                MailPassword = Configuration?.GetSection("MailPassword")?.Value.ToString(),
+                SmtpClientHost = Configuration?.GetSection("SmtpClientHost")?.Value.ToString(),
+                SmtpClientPort = Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.Value.ToString()),
+                PopHost = Configuration?.GetSection("PopHost")?.Value.ToString(),
+                PopPort = Convert.ToInt32(Configuration?.GetSection("PopPort")?.Value.ToString())
+            });
+
         }
     }
 }
