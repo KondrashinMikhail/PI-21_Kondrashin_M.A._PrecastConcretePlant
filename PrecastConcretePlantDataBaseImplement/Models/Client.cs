@@ -19,5 +19,6 @@ namespace PrecastConcretePlantDatabaseImplement.Models
         public string Password { get; set; }
         [ForeignKey("ClientId")]
         public List<Order> Orders { get; set; }
+        public List<MessageInfo> MessagesInfo { get; set; }
     }
 }
