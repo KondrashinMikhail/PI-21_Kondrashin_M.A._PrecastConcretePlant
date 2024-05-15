@@ -25,7 +25,7 @@ namespace PrecastConcretePlantView
             {
                 try
                 {
-                    ReinforcedViewModel view = _logic.Read(new ReinforcedBindingModel { Id = iD.Value })?[0];
+                    var view = _logic.Read(new ReinforcedBindingModel { Id = iD.Value })?[0];
                     if (view != null)
                     {
                         textBoxName.Text = view.ReinforcedName;

@@ -4,18 +4,25 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using PrecastConcretePlantContracts.Attributes;
 
 namespace PrecastConcretePlantContracts.ViewModels
 {
     public class WarehouseViewModel
     {
+        [DataMember]
         public int Id { get; set; }
-        [DisplayName("Название склада")]
+        [DataMember]
+        [Column(title: "Название склада", width: 100)]
         public string WarehouseName { get; set; }
-        [DisplayName("Полное имя ответственного за склад")]
+        [DataMember]
+        [Column(title: "Полное имя ответственного за склад", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string WarehouseManagerFullName { get; set; }
-        [DisplayName("Дата создания склада")]
+        [DataMember]
+        [Column(title: "Дата создания", width: 100, dateFormat: "d")]
         public DateTime DateCreate { get; set; }
+        [DataMember]
         public Dictionary<int, (string, int)> WarehouseComponents { get; set; }
     }
 }
