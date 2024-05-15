@@ -1,6 +1,7 @@
 ﻿using System;
 using PrecastConcretePlantContracts.Enums;
 using System.ComponentModel;
+using PrecastConcretePlantContracts.Attributes;
 
 namespace PrecastConcretePlantContracts.ViewModels
 {
@@ -9,19 +10,22 @@ namespace PrecastConcretePlantContracts.ViewModels
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int ReinforcedId { get; set; }
-        [DisplayName("ФИО клиента")]
+        public int? ImplementerId { get; set; }
+        [Column(title: "ФИО клиента", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ClientName { get; set; }
-        [DisplayName("Железобетонные изделия")]
+        [Column(title: "ФИО исполнителя", gridViewAutoSize: GridViewAutoSize.Fill)]
+        public string ImplementerName { get; set; }
+        [Column(title: "Название железобетонного изделия", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ReinforcedName { get; set; }
-        [DisplayName("Количество")]
+        [Column(title: "Количество", width: 100)]
         public int Count { get; set; }
-        [DisplayName("Сумма")]
+        [Column(title: "Сумма", width: 100)]
         public decimal Sum { get; set; }
-        [DisplayName("Статус")]
+        [Column(title: "Статус", width: 100)]
         public OrderStatus Status { get; set; }
-        [DisplayName("Дата создания")]
+        [Column(title: "Дата создани", width: 100)]
         public DateTime DateCreate { get; set; }
-        [DisplayName("Дата выполнения")]
+        [Column(title: "Дата исполнения", width: 100)]
         public DateTime? DateImplement { get; set; }
     }
 }
