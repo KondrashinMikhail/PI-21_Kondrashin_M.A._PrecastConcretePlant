@@ -107,7 +107,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 context.SaveChanges();
                 foreach (var updateComponent in reinforcedComponents)
                 {
-                    updateComponent.Count = model.ReinforcedComponents[updateComponent.ComponentId].Item2; model.ReinforcedComponents.Remove(updateComponent.ComponentId);
+                    updateComponent.Count = model.ReinforcedComponents[updateComponent.ComponentId].Item2;
+                    model.ReinforcedComponents.Remove(updateComponent.ComponentId);
                 }
                 context.SaveChanges();
             }
