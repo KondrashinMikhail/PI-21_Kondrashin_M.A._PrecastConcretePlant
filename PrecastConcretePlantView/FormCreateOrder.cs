@@ -11,18 +11,26 @@ namespace PrecastConcretePlantView
     {
         private readonly IReinforcedLogic _logicR;
         private readonly IOrderLogic _logicO;
-        public FormCreateOrder(IReinforcedLogic logicR, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+        public FormCreateOrder(IReinforcedLogic logicR, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicR = logicR;
             _logicO = logicO;
-            List<ReinforcedViewModel> list = _logicR.Read(null);
-            if (list != null)
+            _logicC = logicC;
+            List<ReinforcedViewModel> listReinforceds = _logicR.Read(null);
+            List<ClientViewModel> listClients = _logicC.Read(null);
+            if (listReinforceds != null && listClients != null)
             {
                 comboBoxReinforced.DisplayMember = "ReinforcedName";
                 comboBoxReinforced.ValueMember = "Id";
-                comboBoxReinforced.DataSource = list;
+                comboBoxReinforced.DataSource = listReinforceds;
                 comboBoxReinforced.SelectedItem = null;
+
+                comboBoxClient.DisplayMember = "ClientName";
+                comboBoxClient.ValueMember = "Id";
+                comboBoxClient.DataSource = listClients;
+                comboBoxClient.SelectedItem = null;
             }
         }
         private void CalcSum()
@@ -53,7 +61,7 @@ namespace PrecastConcretePlantView
             }
             if (comboBoxReinforced.SelectedValue == null)
             {
-                MessageBox.Show("Выберите пиццу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите ЖБИ", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -62,7 +70,8 @@ namespace PrecastConcretePlantView
                 {
                     ReinforcedId = Convert.ToInt32(comboBoxReinforced.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToDecimal(textBoxSum.Text)
+                    Sum = Convert.ToDecimal(textBoxSum.Text),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

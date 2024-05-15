@@ -59,19 +59,19 @@
             this.comboBoxComponent.FormattingEnabled = true;
             this.comboBoxComponent.Location = new System.Drawing.Point(109, 6);
             this.comboBoxComponent.Name = "comboBoxComponent";
-            this.comboBoxComponent.Size = new System.Drawing.Size(250, 28);
+            this.comboBoxComponent.Size = new System.Drawing.Size(317, 28);
             this.comboBoxComponent.TabIndex = 2;
             // 
             // textBoxCount
             // 
             this.textBoxCount.Location = new System.Drawing.Point(109, 40);
             this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(250, 27);
+            this.textBoxCount.Size = new System.Drawing.Size(317, 27);
             this.textBoxCount.TabIndex = 3;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(165, 73);
+            this.buttonSave.Location = new System.Drawing.Point(232, 73);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(94, 29);
             this.buttonSave.TabIndex = 4;
@@ -81,7 +81,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(265, 73);
+            this.buttonCancel.Location = new System.Drawing.Point(332, 73);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(94, 29);
             this.buttonCancel.TabIndex = 5;
@@ -93,7 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 114);
+            this.ClientSize = new System.Drawing.Size(438, 114);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxCount);
