@@ -11,6 +11,9 @@ namespace PrecastConcretePlantListImplement
         public List<Reinforced> Reinforceds { get; set; }
         public List<Client> Clients { get; set; }
         public List<Warehouse> Warehouses { get; set; }
+        public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> MessagesInfo { get;set; }
+
         private DataListSingleton()
         {
             Components = new List<Component>();
@@ -18,6 +21,8 @@ namespace PrecastConcretePlantListImplement
             Reinforceds = new List<Reinforced>();
             Warehouses = new List<Warehouse>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();
+            MessagesInfo = new List<MessageInfo>();
         }
         public static DataListSingleton GetInstance()
         {

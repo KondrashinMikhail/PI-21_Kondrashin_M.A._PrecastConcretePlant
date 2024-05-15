@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using PrecastConcretePlantContracts.Attributes;
 
 namespace PrecastConcretePlantContracts.ViewModels
 {
@@ -13,19 +14,15 @@ namespace PrecastConcretePlantContracts.ViewModels
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-
-        [DisplayName("Название склада")]
+        [Column(title: "Название склада", width: 100)]
         public string WarehouseName { get; set; }
         [DataMember]
-
-        [DisplayName("Полное имя ответственного за склад")]
+        [Column(title: "Полное имя ответственного за склад", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string WarehouseManagerFullName { get; set; }
         [DataMember]
-
-        [DisplayName("Дата создания склада")]
+        [Column(title: "Дата создания", width: 100, dateFormat: "d")]
         public DateTime DateCreate { get; set; }
         [DataMember]
-
         public Dictionary<int, (string, int)> WarehouseComponents { get; set; }
     }
 }

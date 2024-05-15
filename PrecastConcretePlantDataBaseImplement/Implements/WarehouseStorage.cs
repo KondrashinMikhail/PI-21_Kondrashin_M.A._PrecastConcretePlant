@@ -127,7 +127,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             catch
             {
                 transaction.Rollback();
-                throw;
+                return false;
             }
         }
         private static Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse, PrecastConcretePlantDatabase context)
