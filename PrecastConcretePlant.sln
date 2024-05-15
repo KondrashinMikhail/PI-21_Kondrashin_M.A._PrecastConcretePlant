@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantBusines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantListImplement", "PrecastConcretePlantListImplement\PrecastConcretePlantListImplement.csproj", "{9CBA136B-C5FA-4CFF-8109-DE9255F65909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantFileImplement", "PrecastConcretePlantFileImplement\PrecastConcretePlantFileImplement.csproj", "{EEE4B59E-CF0C-4003-93FF-3570CD1F699C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantFileImplement", "PrecastConcretePlantFileImplement\PrecastConcretePlantFileImplement.csproj", "{EEE4B59E-CF0C-4003-93FF-3570CD1F699C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantDatabaseImplement", "PrecastConcretePlantDataBaseImplement\PrecastConcretePlantDatabaseImplement.csproj", "{E4E5ED76-D415-4B64-AAED-915E77D6DE66}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantRestApi", "PrecastConcretePlantRestApi\PrecastConcretePlantRestApi.csproj", "{67CEF1A6-5022-47C2-867C-4B32E8AE92F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrecastConcretePlantClientApp", "PrecastConcretePlantClientApp\PrecastConcretePlantClientApp.csproj", "{EB48DBFF-E04C-459B-9E4A-46E0320B1E78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrecastConcretePlantWarehouseApp", "PrecastConcretePlantWarehouseApp\PrecastConcretePlantWarehouseApp.csproj", "{657E1BFC-B78D-4CC6-A0C3-0D04DE817804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,22 @@ Global
 		{EEE4B59E-CF0C-4003-93FF-3570CD1F699C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEE4B59E-CF0C-4003-93FF-3570CD1F699C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEE4B59E-CF0C-4003-93FF-3570CD1F699C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4E5ED76-D415-4B64-AAED-915E77D6DE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4E5ED76-D415-4B64-AAED-915E77D6DE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4E5ED76-D415-4B64-AAED-915E77D6DE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4E5ED76-D415-4B64-AAED-915E77D6DE66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CEF1A6-5022-47C2-867C-4B32E8AE92F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CEF1A6-5022-47C2-867C-4B32E8AE92F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CEF1A6-5022-47C2-867C-4B32E8AE92F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CEF1A6-5022-47C2-867C-4B32E8AE92F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB48DBFF-E04C-459B-9E4A-46E0320B1E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB48DBFF-E04C-459B-9E4A-46E0320B1E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB48DBFF-E04C-459B-9E4A-46E0320B1E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB48DBFF-E04C-459B-9E4A-46E0320B1E78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657E1BFC-B78D-4CC6-A0C3-0D04DE817804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657E1BFC-B78D-4CC6-A0C3-0D04DE817804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657E1BFC-B78D-4CC6-A0C3-0D04DE817804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657E1BFC-B78D-4CC6-A0C3-0D04DE817804}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
