@@ -12,7 +12,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
 {
     public class ReinforcedStorage : IReinforcedStorage
     {
-        public List<ReinforcedViewModel> GetFullList()
+        public List<ImplemenerViewModel> GetFullList()
         {
             using var context = new PrecastConcretePlantDatabase();
             return context.Reinforceds
@@ -22,7 +22,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             .Select(CreateModel)
             .ToList();
         }
-        public List<ReinforcedViewModel> GetFilteredList(ReinforcedBindingModel model)
+        public List<ImplemenerViewModel> GetFilteredList(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
@@ -34,7 +34,7 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             .Select(CreateModel)
             .ToList();
         }
-        public ReinforcedViewModel GetElement(ReinforcedBindingModel model)
+        public ImplemenerViewModel GetElement(ReinforcedBindingModel model)
         {
             if (model == null) return null;
             using var context = new PrecastConcretePlantDatabase();
@@ -56,6 +56,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                     Price = model.Price
                 };
                 context.Reinforceds.Add(reinforced);
+                context.SaveChanges();
+                CreateModel(model, reinforced, context);
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -105,7 +107,8 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
                 context.SaveChanges();
                 foreach (var updateComponent in reinforcedComponents)
                 {
-                    updateComponent.Count = model.ReinforcedComponents[updateComponent.ComponentId].Item2; model.ReinforcedComponents.Remove(updateComponent.ComponentId);
+                    updateComponent.Count = model.ReinforcedComponents[updateComponent.ComponentId].Item2;
+                    model.ReinforcedComponents.Remove(updateComponent.ComponentId);
                 }
                 context.SaveChanges();
             }
@@ -121,9 +124,9 @@ namespace PrecastConcretePlantDatabaseImplement.Implements
             }
             return reinforced;
         }
-        private static ReinforcedViewModel CreateModel(Reinforced reinforced)
+        private static ImplemenerViewModel CreateModel(Reinforced reinforced)
         {
-            return new ReinforcedViewModel
+            return new ImplemenerViewModel
             {
                 Id = reinforced.Id,
                 ReinforcedName = reinforced.ReinforcedName,
