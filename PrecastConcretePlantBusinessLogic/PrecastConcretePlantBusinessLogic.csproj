@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="PDFsharp-MigraDoc-GDI" Version="1.50.5147" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrecastConcretePlantContracts\PrecastConcretePlantContracts.csproj" />
+  </ItemGroup>
+
+</Project>
