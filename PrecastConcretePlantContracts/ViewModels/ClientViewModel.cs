@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrecastConcretePlantContracts.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,12 +10,13 @@ namespace PrecastConcretePlantContracts.ViewModels
 {
     public class ClientViewModel
     {
+        [Column(title: "Номер", width:100)]
         public int Id { get; set; }
-        [DisplayName("ФИО клиента")]
+        [Column(title: "ФИО клиента", width: 100)]
         public string ClientName { get; set; }
-        [DisplayName("Логин")]
+        [Column(title: "Логин", width: 100)]
         public string Login { get; set; }
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 100)]
         public string Password { get; set; }
     }
 }
