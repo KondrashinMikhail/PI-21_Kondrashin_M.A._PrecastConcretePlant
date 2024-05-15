@@ -38,10 +38,10 @@ namespace PrecastConcretePlantView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
         private void FormComponent_Load(object sender, EventArgs e)
         {
@@ -50,10 +50,7 @@ namespace PrecastConcretePlantView
                 try
                 {
                     var view = _logic.Read(new ComponentBindingModel { Id = id })?[0];
-                    if (view != null)
-                    {
-                        textBoxName.Text = view.ComponentName;
-                    }
+                    if (view != null) textBoxName.Text = view.ComponentName;
                 }
                 catch (Exception ex)
                 {
